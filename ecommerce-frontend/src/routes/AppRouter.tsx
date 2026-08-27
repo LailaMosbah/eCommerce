@@ -14,6 +14,7 @@ import Categories from '@pages/Categories';
 import Login from '@pages/Login';
 import Signup from '@pages/Signup'
 import ErrorPage from '@pages/ErrorPage';
+import ShoppingCart from '@pages/ShoppingCart';
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <AboutUs />,
+            },
+            {
+                path: "/cart",
+                element: <ShoppingCart />,
             },
             {
                 path: "/categories/products/:prefix",
