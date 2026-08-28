@@ -33,6 +33,15 @@ export const cartSlice = createSlice({
         state.items[idProduct] = 1;
       }
     },
+    cartItemChangeQuantity: (state, action) => {
+      state.items[action.payload.id] = action.payload.quantity;
+    },
+    cartItemRemove: (state, action) => {
+      delete state.items[action.payload];
+      state.productsFullInfo = state.productsFullInfo.filter(
+        (el) => el.id !== action.payload,
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProductsByItems.pending, (state) => {
@@ -59,7 +68,8 @@ export const cartSlice = createSlice({
 //   },
 // );
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, cartItemChangeQuantity, cartItemRemove } =
+  cartSlice.actions;
 export { getProductsByItems };
 // export { getCartItemsCount };
 export default cartSlice.reducer;

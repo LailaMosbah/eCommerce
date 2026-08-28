@@ -1,14 +1,27 @@
+import { memo } from 'react';
 import { Button, InputNumber } from 'antd';
 import { Form } from 'antd';
+import type { InputNumberProps } from 'antd';
+
 
 import type { Product } from "../../../types";
 
 import styles from "./styles.module.css";
 const { cartItem, product, productImg, productInfo, cartItemSelection } = styles;
 
-type ShoppingCartItemProps = Product
-export default function ShoppingCartItem({ img, price, title }: ShoppingCartItemProps) {
+type ShoppingCartItemProps = Product & {
+    changeQuantityHandler: (id: number, quantity: number) => void
+    removeCartItemHandler: (id: number) => void
+}
 
+
+//Main Component
+function ShoppingCartItem({ id, img, price, title, max_quantity, quantity, changeQuantityHandler, removeCartItemHandler }: ShoppingCartItemProps) {
+
+    const changeQuantity: InputNumberProps<number>['onChange'] = (value) => {
+        if (value === null) return;
+        changeQuantityHandler(id, value)
+    }
 
     return (
         <>
@@ -28,6 +41,7 @@ export default function ShoppingCartItem({ img, price, title }: ShoppingCartItem
                             variant="solid"
                             style={{ color: "black" }}
                             className="mt-auto"
+                            onClick={() => removeCartItemHandler(id)}
                         >
                             Remove
                         </Button>
@@ -42,7 +56,7 @@ export default function ShoppingCartItem({ img, price, title }: ShoppingCartItem
                         <option value="3">3</option>
                     </Form.Select> */}
                     <Form.Item label="InputNumber">
-                        <InputNumber />
+                        <InputNumber max={max_quantity} min={1} value={quantity} onChange={changeQuantity} />
                     </Form.Item>
                 </div>
             </div>
@@ -52,3 +66,5 @@ export default function ShoppingCartItem({ img, price, title }: ShoppingCartItem
         </>
     )
 }
+
+export default memo(ShoppingCartItem);
