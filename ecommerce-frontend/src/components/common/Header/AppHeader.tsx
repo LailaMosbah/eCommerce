@@ -97,7 +97,7 @@ const AppHeader: React.FC = () => {
         { label: <Link to="/logout">Logout</Link>, key: 'logout' },
     ];
 
-    const wishlistItemsCount = 2; // This would come from your wishlist state
+    const wishlistItemsCount = 0; // This would come from your wishlist state
 
     return (
         <Header className={`${styles.header} ${scrolled ? styles['header--scrolled'] : ''}`}>

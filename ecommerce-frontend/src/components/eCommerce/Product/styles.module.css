@@ -1,0 +1,13 @@
+.wishListBtn {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

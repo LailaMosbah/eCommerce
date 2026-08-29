@@ -2,8 +2,14 @@ import { memo } from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { addToCart } from "../../../features/cart/cartSlice";
 
+//Components and assests
 import { Button, Card } from 'antd';
 const { Meta } = Card;
+
+import styles from "./styles.module.css"
+import Like from "@assets/like.svg"
+import LikeFill from "@assets/like-fill.svg"
+
 
 import type { Product } from "../../../types"
 
@@ -35,6 +41,17 @@ export default memo(function Product({ product }: { product: Product }) {
                     />
                 }
             >
+                <Button
+                    type="text"
+                    className={styles.wishListBtn}
+                    aria-label="Add to wishlist"
+                >
+                    <img
+                        src={Like}
+                        alt=""
+                    />
+                </Button>
+
                 {/* <p>Remaining Quantity: {currentRemainingQuantity}</p> */}
                 <p>{isAddToCartDisabled ? "Out of stock" : "In stock"}</p>
                 <p>{isAddToCartDisabled ? "" : `you can add ${currentRemainingQuantity} more items to your cart`}</p>
