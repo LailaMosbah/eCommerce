@@ -1,6 +1,8 @@
 import { memo } from "react";
+//Redux
 import { useAppDispatch } from "../../../app/hooks";
 import { addToCart } from "../../../features/cart/cartSlice";
+import { toggleLikeProduct } from "@features/wishlist/wishlistSlice"
 
 //Components and assests
 import { Button, Card } from 'antd';
@@ -8,24 +10,27 @@ const { Meta } = Card;
 
 import styles from "./styles.module.css"
 import Like from "@assets/like.svg"
-import LikeFill from "@assets/like-fill.svg"
+// import LikeFill from "@assets/like-fill.svg"
 
 
 import type { Product } from "../../../types"
 
 
 
+// Main Function Component
 export default memo(function Product({ product }: { product: Product }) {
     const dispatch = useAppDispatch();
-    // console.log("product", product)
-    console.log("fire")
+
+    //Cart Quantity Logic
     const currentRemainingQuantity = (Number(product.max_quantity) - ((product.quantity) ?? 0))
     const isAddToCartDisabled = currentRemainingQuantity <= 0
-
-
-
     const addToCartHandler = () => {
         dispatch(addToCart(product.id))
+    }
+
+    //Wishlist Logic
+    const toggleLikeHandler = () => {
+        dispatch(toggleLikeProduct(product.id))
     }
 
     return (
@@ -45,6 +50,7 @@ export default memo(function Product({ product }: { product: Product }) {
                     type="text"
                     className={styles.wishListBtn}
                     aria-label="Add to wishlist"
+                    onClick={toggleLikeHandler}
                 >
                     <img
                         src={Like}

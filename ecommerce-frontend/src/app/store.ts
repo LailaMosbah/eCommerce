@@ -15,6 +15,7 @@ import {
 import categoriesReducer from "../features/categories/categoriesSlice";
 import productsReducer from "../features/product/productsSlice";
 import cartReducer from "../features/cart/cartSlice";
+import wishlistReducer from "../features/wishlist/wishlistSlice";
 
 // const rootPersistConfig = {
 //   key: "root", // key for every config because I can have muliple config
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   products: productsReducer,
   cart: persistReducer(cartPersistConfig, cartReducer),
+  wishlist: wishlistReducer,
 });
 
 // const persistedReducer = persistReducer(cartPersistConfig, rootReducer);

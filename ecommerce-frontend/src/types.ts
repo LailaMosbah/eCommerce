@@ -29,4 +29,15 @@ interface ProductsState {
   error: string | null;
 }
 
-export type { Loading, Category, CategoriesState, Product, ProductsState };
+interface WishListState {
+  productsId: number[];
+}
+
+export type {
+  Loading,
+  Category,
+  CategoriesState,
+  Product,
+  ProductsState,
+  WishListState,
+};
