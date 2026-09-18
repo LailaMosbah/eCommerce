@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 //Redux
 import { useAppDispatch } from "../../../app/hooks";
 import { addToCart } from "../../../features/cart/cartSlice";
@@ -10,14 +10,19 @@ const { Meta } = Card;
 
 import styles from "./styles.module.css"
 import Like from "@assets/like.svg"
-// import LikeFill from "@assets/like-fill.svg"
+import LikeFill from "@assets/like-fill.svg"
+
+// Antd Components
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+
 
 
 import type { Product } from "../../../types"
 
 
 
-// Main Function Component
+// Main Product Function Component
 export default memo(function Product({ product }: { product: Product }) {
     const dispatch = useAppDispatch();
 
@@ -29,9 +34,22 @@ export default memo(function Product({ product }: { product: Product }) {
     }
 
     //Wishlist Logic
-    const toggleLikeHandler = () => {
-        dispatch(toggleLikeProduct(product.id))
+    const toggleLikeHandler = async () => {
+        setIsLoading(true)
+
+        try {
+            await dispatch(toggleLikeProduct(product.id)).unwrap()
+        }
+        catch {
+            console.error("Error toggling like product")
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
+    //Loading of Like button is handled in the wishlistSlice
+    const [isLoading, setIsLoading] = useState(false);
+
 
     return (
         <>
@@ -49,13 +67,25 @@ export default memo(function Product({ product }: { product: Product }) {
                 <Button
                     type="text"
                     className={styles.wishListBtn}
-                    aria-label="Add to wishlist"
+                    aria-label={product.isLiked ? "Remove from wishlist" : "Add to wishlist"}
                     onClick={toggleLikeHandler}
                 >
-                    <img
-                        src={Like}
-                        alt=""
-                    />
+                    {
+                        isLoading ? (
+                            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+                        ) :
+                            product.isLiked ? (
+                                <img
+                                    src={LikeFill}
+                                    alt="Liked"
+                                />
+                            ) : (
+                                <img
+                                    src={Like}
+                                    alt="Not liked"
+                                />
+                            )
+                    }
                 </Button>
 
                 {/* <p>Remaining Quantity: {currentRemainingQuantity}</p> */}

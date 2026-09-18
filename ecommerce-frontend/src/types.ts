@@ -21,6 +21,7 @@ interface Product {
   img: string;
   quantity?: number;
   max_quantity: number;
+  isLiked?: boolean;
 }
 
 interface ProductsState {
@@ -31,6 +32,7 @@ interface ProductsState {
 
 interface WishListState {
   productsId: number[];
+  error: string | null;
 }
 
 export type {

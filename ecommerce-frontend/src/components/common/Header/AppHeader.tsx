@@ -1,5 +1,9 @@
 // components/Header/AppHeader.tsx
 import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+
+
+// Ant Design Components
 import { Layout, Button, Menu, Drawer, Badge, Dropdown } from 'antd';
 import {
     MenuOutlined,
@@ -15,18 +19,19 @@ import {
     InfoCircleOutlined,
     PhoneOutlined
 } from '@ant-design/icons';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import type { MenuProps } from 'antd';
 
 import styles from './appHeader.module.css';
 
+//Redux
 import { useAppSelector } from '../../../app/hooks';
 import { getCartItemsCount } from '../../../features/cart/cartSelector';
 
 const { Header } = Layout;
-
 type MenuItem = Required<MenuProps>['items'][number];
 
+
+// Main AppHeader Component
 const AppHeader: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
@@ -97,7 +102,8 @@ const AppHeader: React.FC = () => {
         { label: <Link to="/logout">Logout</Link>, key: 'logout' },
     ];
 
-    const wishlistItemsCount = 0; // This would come from your wishlist state
+    //Wishlist count from Redux store
+    const wishlistItemsCount = useAppSelector((state) => state.wishlist.productsId.length); // This would come from your wishlist state
 
     return (
         <Header className={`${styles.header} ${scrolled ? styles['header--scrolled'] : ''}`}>

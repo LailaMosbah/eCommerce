@@ -100,8 +100,33 @@
   "wishlist": [
     {
       "userId": 1,
+      "productId": 1,
+      "id": 3
+    },
+    {
+      "userId": 1,
       "productId": 2,
-      "id": 2
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "productId": 3,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "productId": 6,
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "productId": 4,
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "productId": 5,
+      "id": 8
     }
   ]
 }
