@@ -16,7 +16,7 @@ interface CategoriesState {
 interface Product {
   id: number;
   title: string;
-  price: string;
+  price: number;
   cat_prefix: string;
   img: string;
   quantity?: number;
@@ -33,6 +33,8 @@ interface ProductsState {
 interface WishListState {
   productsId: number[];
   error: string | null;
+  loading: Loading;
+  productsFullInfo: Product[];
 }
 
 export type {

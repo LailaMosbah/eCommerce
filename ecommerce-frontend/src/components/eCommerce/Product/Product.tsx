@@ -35,8 +35,9 @@ export default memo(function Product({ product }: { product: Product }) {
 
     //Wishlist Logic
     const toggleLikeHandler = async () => {
-        setIsLoading(true)
 
+        if (isLoading) return; // Prevent multiple clicks while loading
+        setIsLoading(true)
         try {
             await dispatch(toggleLikeProduct(product.id)).unwrap()
         }

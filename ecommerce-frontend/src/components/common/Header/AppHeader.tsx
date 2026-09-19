@@ -170,6 +170,7 @@ const AppHeader: React.FC = () => {
                             icon={<HeartOutlined />}
                             className={styles.header__iconButton}
                             aria-label="Wishlist"
+                            onClick={() => navigate('/wishlist')}
                         />
                     </Badge>
 
