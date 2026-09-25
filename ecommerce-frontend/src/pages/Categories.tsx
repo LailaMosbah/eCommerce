@@ -1,6 +1,8 @@
 import { useEffect } from "react"
+
+// Reduix
 import { useAppDispatch, useAppSelector } from "@app/hooks";
-import { getCategories } from "@features/categories/categoriesSlice";
+import { getCategories, cleanUpCategories } from "@features/categories/categoriesSlice";
 // Commponents
 import { Category } from "@components/eCommerce"
 import Loading from "@components/feedback/loading/Loading";
@@ -12,10 +14,12 @@ export default function Categories() {
 
     // Dispatch مرة واحدة فقط
     useEffect(() => {
-        if (records.length === 0 && loading === "idle")
-            dispatch(getCategories());
+        dispatch(getCategories());
+        return () => {
+            dispatch(cleanUpCategories());
+        }
 
-    }, [dispatch, records.length, loading]);
+    }, [dispatch]);
 
 
 

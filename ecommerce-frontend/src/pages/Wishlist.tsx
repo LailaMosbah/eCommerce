@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { getWishlistProducts, productsFullInfoCleanUp } from "../features/wishlist/wishlistSlice";
+import { getWishlistProducts, cleanUpWishlistProductsFullInfo } from "../features/wishlist/wishlistSlice";
 
 //Components
 import { Product } from "@components/eCommerce"
@@ -21,7 +21,7 @@ function Wishlist() {
     useEffect(() => {
         dispatch(getWishlistProducts());
         return () => {
-            dispatch(productsFullInfoCleanUp());
+            dispatch(cleanUpWishlistProductsFullInfo());
         }
     }, [dispatch]);
 

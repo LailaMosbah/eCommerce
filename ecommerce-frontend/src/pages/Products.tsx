@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@app/hooks"
 import { getProductsByCategory } from "@features/product/productsThunks"
-import { productsCleanUp } from "@features/product/productsSlice"
+import { cleanUpProducts } from "@features/product/productsSlice"
 //Components
 import { Product } from "@components/eCommerce"
 import Loading from "@components/feedback/loading/Loading";
@@ -27,7 +27,7 @@ export default function Products() {
     useEffect(() => {
         const promise = dispatch(getProductsByCategory(prefix || ""))
         return () => {
-            dispatch(productsCleanUp())
+            dispatch(cleanUpProducts())
             promise.abort()
         }
     }, [dispatch, prefix])

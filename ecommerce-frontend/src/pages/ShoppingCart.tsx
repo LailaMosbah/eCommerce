@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from "react";
 //Reduix
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { getProductsByItems, cartItemChangeQuantity, cartItemRemove } from "../features/cart/cartSlice";
+import { getProductsByItems, cartItemChangeQuantity, cartItemRemove, clearCartProductsFullInfo } from "../features/cart/cartSlice";
 //Component
 import { CartItemList, CartSubtotalPrice } from "../components/eCommerce/index";
 import Loading from "@components/feedback/loading/Loading";
@@ -12,6 +12,9 @@ export default function ShoppingCart() {
 
     useEffect(() => {
         dispatch(getProductsByItems());
+        return () => {
+            dispatch(clearCartProductsFullInfo())
+        }
     }, [dispatch]);
     console.log("rendering")
 
