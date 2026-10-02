@@ -1,27 +1,12 @@
-import { useEffect } from "react"
-
-// Reduix
-import { useAppDispatch, useAppSelector } from "@app/hooks";
-import { getCategories, cleanUpCategories } from "@features/categories/categoriesSlice";
+//Hooks
+import useCategories from "@hooks/useCategories";
 // Commponents
 import { Category } from "@components/eCommerce"
 import Loading from "@components/feedback/loading/Loading";
 import { GridList } from "@components/common";
 
 export default function Categories() {
-    const dispatch = useAppDispatch();
-    const { records, loading, error } = useAppSelector((state) => state.categories);
-
-    // Dispatch مرة واحدة فقط
-    useEffect(() => {
-        dispatch(getCategories());
-        return () => {
-            dispatch(cleanUpCategories());
-        }
-
-    }, [dispatch]);
-
-
+    const { records, loading, error } = useCategories();
 
     return (
         <div>

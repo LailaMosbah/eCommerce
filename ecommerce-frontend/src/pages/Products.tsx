@@ -1,8 +1,6 @@
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@app/hooks"
-import { getProductsByCategory } from "@features/product/productsThunks"
-import { cleanUpProducts } from "@features/product/productsSlice"
+
+//Hooks
+import { useProducts } from "@hooks/useProducts";
 //Components
 import { Product } from "@components/eCommerce"
 import Loading from "@components/feedback/loading/Loading";
@@ -11,32 +9,13 @@ import { GridList } from "@components/common";
 
 // Products page component
 export default function Products() {
-    const dispatch = useAppDispatch()
-    const { prefix } = useParams()
-    const { records, loading, error } = useAppSelector((state) => state.products)
-    const cartItems = useAppSelector((state) => state.cart.items)
-    const wishlistProductsId = useAppSelector((state) => state.wishlist.productsId)
-
-    const productsFullInfo = records.map((el) => ({
-        ...el,
-        quantity: cartItems[el.id] || 0,
-        isLiked: wishlistProductsId.includes(el.id)
-    }))
-
-
-    useEffect(() => {
-        const promise = dispatch(getProductsByCategory(prefix || ""))
-        return () => {
-            dispatch(cleanUpProducts())
-            promise.abort()
-        }
-    }, [dispatch, prefix])
-
+    const { productsFullInfo, loading, error } = useProducts();
 
     return (
         <div>
             <Loading status={loading} error={error}>
                 <h1>products</h1>
+                {/* <Heading title={`${params.prefix?.toUpperCase()} Products`}/> */}
                 <GridList
                     records={productsFullInfo}
                     renderItem={(record) => <Product key={record.id} product={record} />} />
