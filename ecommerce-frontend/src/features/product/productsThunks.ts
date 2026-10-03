@@ -8,18 +8,20 @@ const getProductsByCategory = createAsyncThunk<
   string,
   { rejectValue: string | null }
 >("products/getProductsByCategory", async (prefix, thunkAPI) => {
+  const { signal, rejectWithValue } = thunkAPI;
   try {
     const response = await axios.get<Product[]>(
       `/products?cat_prefix=${prefix}`,
+      { signal },
     );
     // console.log("API Response data:(productsThunks)");
     // console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return thunkAPI.rejectWithValue(error.response?.data || null);
+      return rejectWithValue(error.response?.data || null);
     } else {
-      return thunkAPI.rejectWithValue("An unexpected error occurred");
+      return rejectWithValue("An unexpected error occurred");
     }
   }
 });

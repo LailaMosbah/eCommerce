@@ -15,8 +15,9 @@ const useCart = () => {
   );
 
   useEffect(() => {
-    dispatch(getProductsByItems());
+    const promise = dispatch(getProductsByItems());
     return () => {
+      promise.abort(); // Cancel the request if the component unmounts
       dispatch(clearCartProductsFullInfo());
     };
   }, [dispatch]);

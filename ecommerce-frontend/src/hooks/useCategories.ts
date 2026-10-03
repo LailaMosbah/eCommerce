@@ -15,8 +15,9 @@ const useCategories = () => {
 
   // Dispatch مرة واحدة فقط
   useEffect(() => {
-    dispatch(getCategories());
+    const promise = dispatch(getCategories());
     return () => {
+      promise.abort(); // Cancel the request if the component unmounts
       dispatch(cleanUpCategories());
     };
   }, [dispatch]);

@@ -1,60 +1,61 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import { lazy, Suspense } from 'react';
 // Loaders
 import { productsLoader } from '@loaders/productsLoader';
 
 // Layouts
-import { MainLayout } from '@layouts/index';
+const MainLayout = lazy(() => import('@layouts/MainLayout/MainLayout'));
 
 // Pages
-import Home from '@pages/Home';
-import AboutUs from '@pages/AboutUs';
-import Products from '@pages/Products';
-import Categories from '@pages/Categories';
-import Login from '@pages/Login';
-import Signup from '@pages/Signup'
-import ErrorPage from '@pages/ErrorPage';
-import ShoppingCart from '@pages/ShoppingCart';
-import Wishlist from '@pages/Wishlist';
+const Home = lazy(() => import('@pages/Home'));
+const AboutUs = lazy(() => import('@pages/AboutUs'));
+const Products = lazy(() => import('@pages/Products'));
+const Categories = lazy(() => import('@pages/Categories'));
+const Login = lazy(() => import('@pages/Login'));
+const Signup = lazy(() => import('@pages/Signup'));
+const ErrorPage = lazy(() => import('@pages/ErrorPage'));
+const ShoppingCart = lazy(() => import('@pages/ShoppingCart'));
+const Wishlist = lazy(() => import('@pages/Wishlist'));
+
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainLayout />,
+        element: <Suspense fallback={<div>Loading...</div>}><MainLayout /></Suspense>,
         errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
-                element: <Home />,
+                element: <Suspense fallback={<div>Loading...</div>}><Home /></Suspense>,
             },
             {
                 path: "/about",
-                element: <AboutUs />,
+                element: <Suspense fallback={<div>Loading...</div>}><AboutUs /></Suspense>,
             },
             {
                 path: "/cart",
-                element: <ShoppingCart />,
+                element: <Suspense fallback={<div>Loading...</div>}><ShoppingCart /></Suspense>,
             },
             {
                 path: "/categories/products/:prefix",
-                element: <Products />,
+                element: <Suspense fallback={<div>Loading...</div>}><Products /></Suspense>,
                 loader: productsLoader,
             },
             {
                 path: "/categories",
-                element: <Categories />,
+                element: <Suspense fallback={<div>Loading...</div>}><Categories /></Suspense>,
             },
             {
                 path: "/login",
-                element: <Login />,
+                element: <Suspense fallback={<div>Loading...</div>}><Login /></Suspense>,
             },
             {
                 path: "/signup",
-                element: <Signup />,
+                element: <Suspense fallback={<div>Loading...</div>}><Signup /></Suspense>,
             },
             {
                 path: "/wishlist",
-                element: <Wishlist />,
+                element: <Suspense fallback={<div>Loading...</div>}><Wishlist /></Suspense>,
             }
         ]
     }
