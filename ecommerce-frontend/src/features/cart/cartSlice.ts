@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { Product, Loading } from "../../types";
+import { isString } from "../../types";
 
 import { getProductsByItems } from "./cartThunks";
 
@@ -57,7 +58,7 @@ export const cartSlice = createSlice({
     });
     builder.addCase(getProductsByItems.rejected, (state, action) => {
       state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });

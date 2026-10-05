@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // Thunks
 import { toggleLikeProduct, getWishlistProducts } from "./wishlistThunks";
 
-import type { WishListState } from "../../types";
+import { isString, type WishListState } from "../../types";
 
 const initialState: WishListState = {
   productsId: [],
@@ -38,7 +38,7 @@ const wishlistSlice = createSlice({
       }
     });
     builder.addCase(toggleLikeProduct.rejected, (state, action) => {
-      if (action.payload && typeof action.payload === "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });

@@ -37,6 +37,11 @@ interface WishListState {
   productsFullInfo: Product[];
 }
 
+// Guards
+const isString = (value: unknown): value is string => {
+  return typeof value === "string";
+};
+
 export type {
   Loading,
   Category,
@@ -45,3 +50,5 @@ export type {
   ProductsState,
   WishListState,
 };
+
+export { isString };
