@@ -14,7 +14,7 @@ function Wishlist() {
     return (
         <>
 
-            <Loading status={loading} error={error}>
+            <Loading status={loading} error={error} type="product">
                 <h1>Wishlist</h1>
                 <GridList
                     records={productsInWishlistFullInfo}

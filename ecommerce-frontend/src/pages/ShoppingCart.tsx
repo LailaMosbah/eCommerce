@@ -9,7 +9,7 @@ export default function ShoppingCart() {
     return (
         <>
             <h1>Shopping Cart</h1>
-            <Loading status={loading} error={error}>
+            <Loading status={loading} error={error} type="cart">
                 {
                     products.length > 0 ?
                         <>

@@ -13,7 +13,7 @@ export default function Products() {
 
     return (
         <div>
-            <Loading status={loading} error={error}>
+            <Loading status={loading} error={error} type="product">
                 <h1>products</h1>
                 {/* <Heading title={`${params.prefix?.toUpperCase()} Products`}/> */}
                 <GridList

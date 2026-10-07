@@ -10,7 +10,7 @@ export default function Categories() {
 
     return (
         <div>
-            <Loading status={loading} error={error}>
+            <Loading status={loading} error={error} type="category">
                 <h1>Categories</h1>
                 <GridList
                     records={records}
