@@ -9,8 +9,8 @@ import { Button, Card } from 'antd';
 const { Meta } = Card;
 
 import styles from "./styles.module.css"
-import Like from "@assets/like.svg"
-import LikeFill from "@assets/like-fill.svg"
+import Like from "@assets/svg/like.svg"
+import LikeFill from "@assets/svg/like-fill.svg"
 
 // Antd Components
 import { LoadingOutlined } from '@ant-design/icons';

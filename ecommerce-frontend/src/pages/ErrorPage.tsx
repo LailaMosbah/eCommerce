@@ -1,6 +1,9 @@
 // src/pages/ErrorPage.tsx
-import { Button, Result } from 'antd';
+import { Button } from 'antd';
 import { NavLink, useRouteError, isRouteErrorResponse } from 'react-router-dom';
+
+//Lotties
+import { LottiesHandler } from "@components/feedback"
 
 
 
@@ -8,13 +11,11 @@ export default function ErrorPage() {
     const error = useRouteError();
 
     let status = 500;
-    let statusText = "Something went wrong";
     let message = "An unexpected error occurred.";
 
     // الطريقة الصحيحة والآمنة
     if (isRouteErrorResponse(error)) {
         status = error.status;
-        statusText = error.statusText;
         message = error.data?.message || error.data || message;
     }
     else if (error instanceof Error) {
@@ -42,22 +43,17 @@ export default function ErrorPage() {
         <div style={{
             height: "100vh",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             padding: "20px"
         }}>
-            <Result
-                status={status >= 500 ? "500" : status >= 400 ? "404" : "error"}
-                title={status}
-                subTitle={statusText || getErrorMessage(status)}
-                extra={
-                    <Button type="primary" size="large">
-                        <NavLink to="/" replace>
-                            Back to Home
-                        </NavLink>
-                    </Button>
-                }
-            />
+            <LottiesHandler type="error" message={getErrorMessage(status)} />
+            <NavLink to="/">
+                <Button type="primary" style={{ marginTop: "20px" }}>
+                    Go Back Home
+                </Button>
+            </NavLink>
         </div>
     );
 }

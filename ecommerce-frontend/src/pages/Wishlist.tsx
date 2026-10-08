@@ -18,7 +18,9 @@ function Wishlist() {
                 <h1>Wishlist</h1>
                 <GridList
                     records={productsInWishlistFullInfo}
-                    renderItem={(record) => <Product key={record.id} product={record} />} />
+                    renderItem={(record) => <Product key={record.id} product={record} />}
+                    emptyMessage="No products found in wishlist."
+                />
             </Loading>
         </>
     )

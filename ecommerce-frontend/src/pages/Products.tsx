@@ -18,7 +18,9 @@ export default function Products() {
                 {/* <Heading title={`${params.prefix?.toUpperCase()} Products`}/> */}
                 <GridList
                     records={productsFullInfo}
-                    renderItem={(record) => <Product key={record.id} product={record} />} />
+                    renderItem={(record) => <Product key={record.id} product={record} />}
+                    emptyMessage="No products found."
+                />
             </Loading>
         </div>
     )

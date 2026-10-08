@@ -14,7 +14,9 @@ export default function Categories() {
                 <h1>Categories</h1>
                 <GridList
                     records={records}
-                    renderItem={(record) => <Category key={record.id} category={record} />} />
+                    renderItem={(record) => <Category key={record.id} category={record} />}
+                    emptyMessage="No categories found."
+                />
             </Loading>
         </div>
     )

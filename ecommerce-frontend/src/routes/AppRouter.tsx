@@ -3,6 +3,9 @@ import { lazy, Suspense } from 'react';
 // Loaders
 import { productsLoader } from '@loaders/productsLoader';
 
+//Lotties Handler
+import { LottiesHandler } from '@components/feedback';
+
 // Layouts
 const MainLayout = lazy(() => import('@layouts/MainLayout/MainLayout'));
 
@@ -21,41 +24,46 @@ const Wishlist = lazy(() => import('@pages/Wishlist'));
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Suspense fallback={<div>Loading...</div>}><MainLayout /></Suspense>,
+        element: <Suspense
+            fallback={<div style={{ marginTop: "10%" }}>
+                <LottiesHandler type="loading" message="Loading please wait..." />
+            </div>}>
+            <MainLayout />
+        </Suspense>,
         errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
-                element: <Suspense fallback={<div>Loading...</div>}><Home /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Home /></Suspense>,
             },
             {
                 path: "/about",
-                element: <Suspense fallback={<div>Loading...</div>}><AboutUs /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><AboutUs /></Suspense>,
             },
             {
                 path: "/cart",
-                element: <Suspense fallback={<div>Loading...</div>}><ShoppingCart /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><ShoppingCart /></Suspense>,
             },
             {
                 path: "/categories/products/:prefix",
-                element: <Suspense fallback={<div>Loading...</div>}><Products /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Products /></Suspense>,
                 loader: productsLoader,
             },
             {
                 path: "/categories",
-                element: <Suspense fallback={<div>Loading...</div>}><Categories /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Categories /></Suspense>,
             },
             {
                 path: "/login",
-                element: <Suspense fallback={<div>Loading...</div>}><Login /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Login /></Suspense>,
             },
             {
                 path: "/signup",
-                element: <Suspense fallback={<div>Loading...</div>}><Signup /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Signup /></Suspense>,
             },
             {
                 path: "/wishlist",
-                element: <Suspense fallback={<div>Loading...</div>}><Wishlist /></Suspense>,
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Wishlist /></Suspense>,
             }
         ]
     }

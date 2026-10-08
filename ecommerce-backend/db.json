@@ -97,21 +97,5 @@
       "max_quantity": 4
     }
   ],
-  "wishlist": [
-    {
-      "userId": 1,
-      "productId": 4,
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "productId": 9,
-      "id": 3
-    },
-    {
-      "userId": 1,
-      "productId": 1,
-      "id": 5
-    }
-  ]
+  "wishlist": []
 }

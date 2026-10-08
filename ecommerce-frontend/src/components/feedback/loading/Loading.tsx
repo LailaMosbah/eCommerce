@@ -4,7 +4,7 @@ import CategorySkeleton from "../skeleton/categorySkeleton/categorySkeleton"
 import ProductSkeleton from "../skeleton/productSkeleton/ProductSkeleton"
 import CartSkeleton from "../skeleton/cartSkeleton/CartSkeleton"
 
-
+import LottiesHandler from '../lottiesHandler/LottiesHandler'
 
 const skeletonComponents = {
     category: CategorySkeleton,
@@ -25,7 +25,7 @@ export default function Loading({ status, error, children, type = "category" }: 
         return <SkeletonComponent />
     }
     if (status === "failed") {
-        return <p>Error: {error}</p>;
+        return <LottiesHandler type="error" message={error || "Unexpected error occurred."} />;
     }
     return (
         <div>

@@ -2,7 +2,7 @@
 import useCart from "../hooks/useCart";
 //Component
 import { CartItemList, CartSubtotalPrice } from "../components/eCommerce/index";
-import Loading from "@components/feedback/loading/Loading";
+import { Loading, LottiesHandler } from "@components/feedback";
 
 export default function ShoppingCart() {
     const { loading, error, products, changeQuantityHandler, removeCartItemHandler } = useCart();
@@ -20,7 +20,7 @@ export default function ShoppingCart() {
                                 removeCartItemHandler={removeCartItemHandler} />
                         </>
                         :
-                        <p>Your Cart is Empty</p>
+                        <LottiesHandler type="empty" message="Your shopping cart is empty." />
                 }
 
             </Loading>
