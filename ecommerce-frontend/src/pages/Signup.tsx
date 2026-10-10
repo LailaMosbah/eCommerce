@@ -1,80 +1,94 @@
-// React Hook Form
-import { useForm, type SubmitHandler } from "react-hook-form"
-
+// React Hook Form and zod
+import { signupSchema, type SignupFormValues } from "@validations/signupSchema";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // Ant Design
-// import type { FormProps } from 'antd';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from "antd";
 
-
-
-
-type SignupFormValues = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-};
+//Components
+import InputForm from "@components/common/Forms/InputForm";
 
 export default function Signup() {
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<SignupFormValues>({
+        resolver: zodResolver(signupSchema),
+        mode: "onBlur",
+        defaultValues: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        },
+    });
 
-    const { register, handleSubmit } = useForm<SignupFormValues>();
     const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
         console.log(data);
     };
+
     return (
         <>
             <h1>Sign Up</h1>
+
             <Form
-                name="basic"
+                name="signup"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 600 }}
                 onFinish={handleSubmit(onSubmit)}
             >
-                <Form.Item
-                    label="First Name"
+                <InputForm
                     name="firstName"
-                >
-                    <Input {...register("firstName")} />
-                </Form.Item>
-
-                <Form.Item
-                    label="Last Name"
+                    control={control}
+                    label="First Name"
+                    placeholder="Enter first name"
+                    error={errors.firstName?.message}
+                />
+                <InputForm
                     name="lastName"
-                >
-                    <Input {...register("lastName")} />
-                </Form.Item>
+                    control={control}
+                    label="Last Name"
+                    placeholder="Enter last name"
+                    error={errors.lastName?.message}
+                />
 
-                <Form.Item
-                    label="Email"
+                <InputForm
                     name="email"
-                >
-                    <Input {...register("email")} />
-                </Form.Item>
+                    control={control}
+                    label="Email"
+                    placeholder="Enter your Email"
+                    error={errors.email?.message}
+                />
 
-                <Form.Item
-                    label="Password"
+                <InputForm
                     name="password"
-                >
-                    <Input.Password {...register("password")} />
-                </Form.Item>
+                    control={control}
+                    label="Password"
+                    placeholder="Enter Password"
+                    error={errors.password?.message}
+                    type="password"
+                />
 
-                <Form.Item
-                    label="Confirm Password"
+                <InputForm
                     name="confirmPassword"
-                >
-                    <Input.Password {...register("confirmPassword")} />
-                </Form.Item>
+                    control={control}
+                    label="Confirm Password"
+                    placeholder="Confirm  Password"
+                    error={errors.confirmPassword?.message}
+                    type="password"
+                />
 
 
-                <Form.Item label={null}>
+                <Form.Item label={null} wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
                         Sign Up
                     </Button>
                 </Form.Item>
             </Form>
         </>
-    )
+    );
 }

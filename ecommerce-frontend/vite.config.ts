@@ -19,6 +19,7 @@ export default defineConfig({
       "@loaders": path.resolve(__dirname, "src/loaders"),
       "@app": path.resolve(__dirname, "src/app"),
       "@features": path.resolve(__dirname, "src/features"),
+      "@validations": path.resolve(__dirname, "src/validations"),
     },
   },
 });
