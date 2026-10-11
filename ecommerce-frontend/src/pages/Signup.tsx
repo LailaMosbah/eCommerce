@@ -3,6 +3,9 @@ import { signupSchema, type SignupFormValues } from "@validations/signupSchema";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+//Hooks 
+import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
+
 // Ant Design
 import { Button, Form } from "antd";
 
@@ -14,6 +17,8 @@ export default function Signup() {
         control,
         handleSubmit,
         formState: { errors },
+        getFieldState,
+        trigger,
     } = useForm<SignupFormValues>({
         resolver: zodResolver(signupSchema),
         mode: "onBlur",
@@ -26,9 +31,26 @@ export default function Signup() {
         },
     });
 
+    const { emailEntered, checkEmailAvailability, emailAvailabilityStatus, resetCheckEmailAvailability } = useCheckEmailAvailability();
+
+
     const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
         console.log(data);
     };
+
+    const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+        const emailValue = e.target.value;
+        await trigger("email");
+        const { isDirty, invalid } = getFieldState("email");
+        if (isDirty && !invalid && emailEntered != emailValue) {
+            checkEmailAvailability(emailValue)
+        }
+
+        if (isDirty && !invalid && emailEntered) {
+            resetCheckEmailAvailability();
+        }
+
+    }
 
     return (
         <>
@@ -62,6 +84,7 @@ export default function Signup() {
                     label="Email"
                     placeholder="Enter your Email"
                     error={errors.email?.message}
+                    onBlur={emailOnBlurHandler}
                 />
 
                 <InputForm

@@ -1,4 +1,9 @@
 {
+  "users": [
+    {
+      "email": "lylyms@gmail.com"
+    }
+  ],
   "categories": [
     {
       "id": 1,

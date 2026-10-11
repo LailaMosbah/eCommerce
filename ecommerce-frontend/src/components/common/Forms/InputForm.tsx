@@ -18,15 +18,25 @@ interface InputFormProps<T extends FieldValues> {
     placeholder?: string;
     type?: "text" | "email" | "password";
     error?: string;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
+
+//Main InputForm component
 function InputForm<T extends FieldValues>({
     name,
     control,
     label,
     placeholder,
     type = "text",
+    onBlur
 }: InputFormProps<T>) {
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        if (onBlur) {
+            onBlur(e);
+        }
+    }
     return (
         <Controller
             name={name}
@@ -47,6 +57,7 @@ function InputForm<T extends FieldValues>({
                             {...field}
                             type={type}
                             placeholder={placeholder}
+                            onBlur={handleBlur}
                         />
                     )}
                 </Form.Item>
