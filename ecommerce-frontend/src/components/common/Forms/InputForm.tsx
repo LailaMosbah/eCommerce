@@ -19,6 +19,9 @@ interface InputFormProps<T extends FieldValues> {
     type?: "text" | "email" | "password";
     error?: string;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    formText?: string;
+    success?: string;
+    disabled?: boolean
 }
 
 
@@ -29,7 +32,10 @@ function InputForm<T extends FieldValues>({
     label,
     placeholder,
     type = "text",
-    onBlur
+    onBlur,
+    formText,
+    success,
+    disabled
 }: InputFormProps<T>) {
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -44,8 +50,9 @@ function InputForm<T extends FieldValues>({
             render={({ field, fieldState: { error } }) => (
                 <Form.Item
                     label={label}
-                    validateStatus={error ? "error" : undefined}
+                    validateStatus={error ? "error" : success ? "success" : ""}
                     help={error?.message}
+
                 >
                     {type === "password" ? (
                         <Input.Password
@@ -58,8 +65,11 @@ function InputForm<T extends FieldValues>({
                             type={type}
                             placeholder={placeholder}
                             onBlur={handleBlur}
+                            disabled={disabled}
                         />
                     )}
+                    {formText && <p>{formText}</p>}
+                    {success && <p>{success}</p>}
                 </Form.Item>
             )}
         />

@@ -83,8 +83,11 @@ export default function Signup() {
                     control={control}
                     label="Email"
                     placeholder="Enter your Email"
-                    error={errors.email?.message}
                     onBlur={emailOnBlurHandler}
+                    error={errors.email?.message ? errors.email?.message : emailAvailabilityStatus == "unValid" ? "The email is in use" : emailAvailabilityStatus == "failed" ? "Error from the server" : ""}
+                    formText={emailAvailabilityStatus == "checking" ? "We are currently checking the availability of email , Please wait a moment" : ""}
+                    success={emailAvailabilityStatus == "vaild" ? "Your Email is vaild" : ""}
+                    disabled={emailAvailabilityStatus == "checking"}
                 />
 
                 <InputForm
@@ -107,7 +110,7 @@ export default function Signup() {
 
 
                 <Form.Item label={null} wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" disabled={emailAvailabilityStatus == "checking"}>
                         Sign Up
                     </Button>
                 </Form.Item>
