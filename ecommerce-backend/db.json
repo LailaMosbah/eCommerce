@@ -1,7 +1,60 @@
 {
   "users": [
     {
-      "email": "lylyms@gmail.com"
+      "email": "lylymsbah2@gmail.com",
+      "password": "$2a$10$lEsAmym3/E5OU3PRxvP4j.ReFjm2rbx3ytntatNQfyxnmPwL578v2",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 1
+    },
+    {
+      "email": "lylymh2@gmail.com",
+      "password": "$2a$10$otDVgrL54i5oehizQjowuOTOafHOeMwMeXF9fxuMroYYBxCDUjsqa",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 2
+    },
+    {
+      "email": "lyly2@gmail.com",
+      "password": "$2a$10$O1Juoh6igWyXCEqJibD3eeJ1NiqcDA4PR4G.VOqWIfJtu0.umrTjK",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 3
+    },
+    {
+      "email": "bah2@gmail.com",
+      "password": "$2a$10$FjAfvYyszhAgC0YldmFt7ONZ1RYUj78u3Bz5IP80.naBPEEahv/Lq",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 4
+    },
+    {
+      "email": "bah@gmail.com",
+      "password": "$2a$10$f6MnL.FoPWlSkLl.DoQCLuW4s/CE9n96eJVeuwJknwviPPYSpIwUW",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 5
+    },
+    {
+      "email": "l2@gmail.com",
+      "password": "$2a$10$u7oiRA5NvWccNGyBv1HcfeP1AKkxustgPZOfEO2ROHYsHoLVxXHGG",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 6
+    },
+    {
+      "email": "lylyh2@gmail.com",
+      "password": "$2a$10$qB7YTO7QHB1h.IQvwdT5D.Do2em2g5cz0AcTRZmiEwAJQBR2dkWAa",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 7
+    },
+    {
+      "email": "Laila@gmail.com",
+      "password": "$2a$10$7yL6iQk77oBZhEbDEcSzJuU4L.VjtX/1VqLV.hM7di3qQDjBTbMla",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 8
     }
   ],
   "categories": [

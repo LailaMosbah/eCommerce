@@ -1,7 +1,15 @@
+// React and React Router
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 // React Hook Form and zod
 import { signupSchema, type SignupFormValues } from "@validations/signupSchema";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+// Rediux
+import { useAppDispatch, useAppSelector } from "@app/hooks";
+import { authRegister, clearStateAuth } from "@features/auth/authSlice";
+
 
 //Hooks 
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
@@ -12,7 +20,13 @@ import { Button, Form } from "antd";
 //Components
 import InputForm from "@components/common/Forms/InputForm";
 
+
+// The Main Function
 export default function Signup() {
+
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const { error, loading } = useAppSelector((state) => state.auth)
     const {
         control,
         handleSubmit,
@@ -34,8 +48,11 @@ export default function Signup() {
     const { emailEntered, checkEmailAvailability, emailAvailabilityStatus, resetCheckEmailAvailability } = useCheckEmailAvailability();
 
 
-    const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
+        const { firstName, lastName, email, password } = data;
+        dispatch(authRegister({ firstName, lastName, email, password })).unwrap().then(() => {
+            navigate("/login?message=account_created")
+        })
     };
 
     const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
@@ -51,6 +68,12 @@ export default function Signup() {
         }
 
     }
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearStateAuth())
+        }
+    }, [dispatch])
 
     return (
         <>
@@ -110,9 +133,10 @@ export default function Signup() {
 
 
                 <Form.Item label={null} wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit" disabled={emailAvailabilityStatus == "checking"}>
-                        Sign Up
+                    <Button type="primary" htmlType="submit" disabled={emailAvailabilityStatus == "checking" || loading == "pending"}>
+                        {loading == "pending" ? "wait ..." : "Sign Up"}
                     </Button>
+                    {error && <p>{error}</p>}
                 </Form.Item>
             </Form>
         </>
