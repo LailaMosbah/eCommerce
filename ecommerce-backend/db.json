@@ -55,6 +55,13 @@
       "firstName": "Laila",
       "lastName": "Mosbah",
       "id": 8
+    },
+    {
+      "email": "laila@gmail.com",
+      "password": "$2a$10$An0fVoiiTyfidmaEpDVAeepZuFStA/o6WWaab87AE2rMXV2R/kTtW",
+      "firstName": "Laila",
+      "lastName": "Mosbah",
+      "id": 9
     }
   ],
   "categories": [

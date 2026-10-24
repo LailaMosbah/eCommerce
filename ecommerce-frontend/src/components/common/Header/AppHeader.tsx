@@ -1,4 +1,4 @@
-// components/Header/AppHeader.tsx
+//React and React Router
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
@@ -24,8 +24,9 @@ import type { MenuProps } from 'antd';
 import styles from './appHeader.module.css';
 
 //Redux
-import { useAppSelector } from '../../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { getCartItemsCount } from '../../../features/cart/cartSelector';
+import { authLogout } from "@features/auth/authSlice"
 
 const { Header } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
@@ -33,6 +34,7 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 // Main AppHeader Component
 const AppHeader: React.FC = () => {
+    const dispatch = useAppDispatch()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -41,6 +43,7 @@ const AppHeader: React.FC = () => {
     const navigate = useNavigate();
 
     const cartItemsCount = useAppSelector(getCartItemsCount);
+    const { user, accessToken } = useAppSelector((state) => state.auth)
 
     // Handle scroll effect
     useEffect(() => {
@@ -99,7 +102,7 @@ const AppHeader: React.FC = () => {
         { label: <Link to="/orders">My Orders</Link>, key: 'orders' },
         { label: <Link to="/wishlist">Wishlist</Link>, key: 'wishlist' },
         { type: 'divider' },
-        { label: <Link to="/logout">Logout</Link>, key: 'logout' },
+        { label: <Link to="/" onClick={() => dispatch(authLogout())}>Logout</Link>, key: 'logout' },
     ];
 
     //Wishlist count from Redux store
@@ -185,31 +188,37 @@ const AppHeader: React.FC = () => {
                         />
                     </Badge>
 
-                    {/* User Dropdown */}
-                    <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" trigger={['click']}>
-                        <Button
-                            type="text"
-                            icon={<UserOutlined />}
-                            className={styles.header__userButton}
+                    {accessToken ? (
+                        <Dropdown
+                            menu={{ items: userMenuItems }}
+                            placement="bottomRight"
+                            trigger={['click']}
                         >
-                            <span className={styles.header__userText}>Account</span>
-                            <DownOutlined className={styles.header__userIcon} />
-                        </Button>
-                    </Dropdown>
-
-                    {/* Auth Buttons - Mobile */}
-                    <div className={styles.header__auth}>
-                        <Button type="primary" className={styles.header__authButton}>
-                            <NavLink to="/signup" className={styles.header__authLink}>
-                                Sign Up
-                            </NavLink>
-                        </Button>
-                        <Button className={styles.header__authButton}>
-                            <NavLink to="/login" className={styles.header__authLink}>
-                                Login
-                            </NavLink>
-                        </Button>
-                    </div>
+                            <Button
+                                type="text"
+                                icon={<UserOutlined />}
+                                className={styles.header__userButton}
+                            >
+                                <span className={styles.header__userText}>
+                                    Welcome {`${user?.firstName} ${user?.lastName}`}
+                                </span>
+                                <DownOutlined className={styles.header__userIcon} />
+                            </Button>
+                        </Dropdown>
+                    ) : (
+                        <div className={styles.header__auth}>
+                            <Button type="primary" className={styles.header__authButton}>
+                                <NavLink to="/signup" className={styles.header__authLink}>
+                                    Sign Up
+                                </NavLink>
+                            </Button>
+                            <Button className={styles.header__authButton}>
+                                <NavLink to="/login" className={styles.header__authLink}>
+                                    Login
+                                </NavLink>
+                            </Button>
+                        </div>
+                    )}
 
                     {/* Hamburger Menu - Mobile Only */}
                     <Button
@@ -244,15 +253,42 @@ const AppHeader: React.FC = () => {
                     className={styles.header__navMobile}
                 />
                 <div className={styles.header__drawerFooter}>
-                    <Button type="primary" block className={styles.header__drawerButton}>
-                        Sign Up
-                    </Button>
-                    <Button block className={styles.header__drawerButton}>
-                        Login
-                    </Button>
+                    {accessToken ? (
+                        <>
+                            <Dropdown
+                                menu={{ items: userMenuItems }}
+                                placement="bottomRight"
+                                trigger={['click']}
+                            >
+                                <Button
+                                    type="text"
+                                    icon={<UserOutlined />}
+                                    className={styles.header__userButton}
+                                >
+                                    <span className={styles.header__userText}>
+                                        Welcome {`${user?.firstName} ${user?.lastName}`}
+                                    </span>
+                                    <DownOutlined className={styles.header__userIcon} />
+                                </Button>
+                            </Dropdown>
+                        </>
+                    ) : (
+                        <>
+                            <Button type="primary" block className={styles.header__drawerButton}>
+                                <NavLink to="/signup" className={styles.header__authLink}>
+                                    Sign Up
+                                </NavLink>
+                            </Button>
+                            <Button block className={styles.header__drawerButton}>
+                                <NavLink to="/login" className={styles.header__authLink}>
+                                    Login
+                                </NavLink>
+                            </Button>
+                        </>
+                    )}
                 </div>
             </Drawer>
-        </Header>
+        </Header >
     );
 };
 

@@ -9,6 +9,9 @@ import { LottiesHandler } from '@components/feedback';
 // Layouts
 const MainLayout = lazy(() => import('@layouts/MainLayout/MainLayout'));
 
+// Protected Route
+import ProtectedRoute from '@components/auth/ProtectedRoute';
+
 // Pages
 const Home = lazy(() => import('@pages/Home'));
 const AboutUs = lazy(() => import('@pages/AboutUs'));
@@ -19,6 +22,7 @@ const Signup = lazy(() => import('@pages/Signup'));
 const ErrorPage = lazy(() => import('@pages/ErrorPage'));
 const ShoppingCart = lazy(() => import('@pages/ShoppingCart'));
 const Wishlist = lazy(() => import('@pages/Wishlist'));
+const Profile = lazy(() => import("@pages/Profile"))
 
 
 const router = createBrowserRouter([
@@ -63,7 +67,21 @@ const router = createBrowserRouter([
             },
             {
                 path: "/wishlist",
-                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><Wishlist /></Suspense>,
+                element:
+                    <ProtectedRoute>
+                        <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}>
+                            <Wishlist />
+                        </Suspense>
+                    </ProtectedRoute>,
+            },
+            {
+                path: "/profile",
+                element:
+                    <ProtectedRoute>
+                        <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}>
+                            <Profile />
+                        </Suspense>
+                    </ProtectedRoute>,
             }
         ]
     }

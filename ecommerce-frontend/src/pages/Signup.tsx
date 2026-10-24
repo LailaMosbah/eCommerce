@@ -1,5 +1,5 @@
 // React and React Router
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 // React Hook Form and zod
 import { signupSchema, type SignupFormValues } from "@validations/signupSchema";
@@ -26,7 +26,7 @@ export default function Signup() {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const { error, loading } = useAppSelector((state) => state.auth)
+    const { error, loading, accessToken } = useAppSelector((state) => state.auth)
     const {
         control,
         handleSubmit,
@@ -74,6 +74,10 @@ export default function Signup() {
             dispatch(clearStateAuth())
         }
     }, [dispatch])
+
+    if (accessToken) {
+        return <Navigate to="/" />
+    }
 
     return (
         <>

@@ -1,5 +1,5 @@
 // React and React Router
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
 // React Hook Form and zod
@@ -23,7 +23,7 @@ import InputForm from "@components/common/Forms/InputForm";
 // The Main Function
 export default function Login() {
     const dispatch = useAppDispatch()
-    const { error, loading } = useAppSelector(state => state.auth)
+    const { error, loading, accessToken } = useAppSelector(state => state.auth)
     const [searchParams, setSearchParams] = useSearchParams()
     const navigate = useNavigate()
 
@@ -55,12 +55,18 @@ export default function Login() {
         }
     }, [dispatch])
 
+    if (accessToken) {
+        return <Navigate to="/" />
+    }
     return (
 
         <>
             <h1>Login</h1>
             {searchParams.get("message") == "account_created" && (
                 <Alert title="Your Account Successfully Created , You Can Login " type="success" />
+            )}
+            {searchParams.get("message") == "login_required" && (
+                <Alert title="You Need to Login to see this content " type="info" />
             )}
             <Form
                 name="login"

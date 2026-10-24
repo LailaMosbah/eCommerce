@@ -24,27 +24,39 @@ import authReducer from "@features/auth/authSlice";
 //   whitelist: ["cart"], // What I will store
 // };
 
+const rootPersistConfig = {
+  key: "root", // key for every config because I can have muliple config
+  storage, // how I store/cash (localStorage for web)
+  whitelist: ["cart", "auth"], // What I will store
+};
+
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  whiteList: ["user", "accessToken"],
+};
 const cartPersistConfig = {
   key: "cart",
   storage,
   whitelist: ["items"],
 };
 
-const wishlistPersistConfig = {
-  key: "wishlist",
-  storage,
-  whitelist: ["productsId"],
-};
+// const wishlistPersistConfig = {
+//   key: "wishlist",
+//   storage,
+//   whitelist: ["productsId"],
+// };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
   categories: categoriesReducer,
   products: productsReducer,
   cart: persistReducer(cartPersistConfig, cartReducer),
-  wishlist: persistReducer(wishlistPersistConfig, wishlistReducer),
+  // wishlist: persistReducer(wishlistPersistConfig, wishlistReducer),
+  wishlist: wishlistReducer,
 });
 
-// const persistedReducer = persistReducer(cartPersistConfig, rootReducer);
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 const store = configureStore({
   // reducer: {
@@ -52,7 +64,7 @@ const store = configureStore({
   //   products: productsReducer,
   //   cart: cartReducer,
   // },
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
