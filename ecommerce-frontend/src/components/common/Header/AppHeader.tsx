@@ -27,6 +27,7 @@ import styles from './appHeader.module.css';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { getCartItemsCount } from '../../../features/cart/cartSelector';
 import { authLogout } from "@features/auth/authSlice"
+import { getWishlistProducts } from '@features/wishlist/wishlistThunks';
 
 const { Header } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
@@ -107,6 +108,11 @@ const AppHeader: React.FC = () => {
 
     //Wishlist count from Redux store
     const wishlistItemsCount = useAppSelector((state) => state.wishlist.productsId.length); // This would come from your wishlist state
+
+    useEffect(() => {
+        if (accessToken)
+            dispatch(getWishlistProducts("productIds"))
+    }, [dispatch, accessToken])
 
     return (
         <Header className={`${styles.header} ${scrolled ? styles['header--scrolled'] : ''}`}>

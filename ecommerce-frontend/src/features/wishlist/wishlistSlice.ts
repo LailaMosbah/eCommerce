@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 // Thunks
 import { toggleLikeProduct, getWishlistProducts } from "./wishlistThunks";
 
-import { isString, type WishListState } from "../../types";
+import { authLogout } from "@features/auth/authSlice";
+
+import { isString, type Product, type WishListState } from "../../types";
 
 const initialState: WishListState = {
   productsId: [],
@@ -50,13 +52,22 @@ const wishlistSlice = createSlice({
     builder.addCase(getWishlistProducts.fulfilled, (state, action) => {
       state.loading = "succeeded";
       console.log("Wishlist products fetched successfully:", action.payload);
-      state.productsFullInfo = action.payload;
+
+      if (action.payload.dataType == "productsFullInfo") {
+        state.productsFullInfo = action.payload.data as Product[];
+      } else if (action.payload.dataType == "productsId") {
+        state.productsId = action.payload.data as unknown as number[];
+      }
     });
     builder.addCase(getWishlistProducts.rejected, (state, action) => {
       state.loading = "failed";
       if (action.payload && typeof action.payload === "string") {
         state.error = action.payload;
       }
+    });
+    builder.addCase(authLogout, (state) => {
+      state.productsFullInfo = [];
+      state.productsId = [];
     });
   },
 });

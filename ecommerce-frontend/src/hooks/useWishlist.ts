@@ -16,7 +16,7 @@ const useWishlist = () => {
   );
 
   useEffect(() => {
-    const promise = dispatch(getWishlistProducts());
+    const promise = dispatch(getWishlistProducts("productsFullInfo"));
     return () => {
       promise.abort();
       dispatch(cleanUpWishlistProductsFullInfo());
@@ -27,6 +27,7 @@ const useWishlist = () => {
     ...el,
     quantity: el.quantity || 0,
     isLiked: true,
+    isAuthenticated: true,
   }));
 
   return { productsInWishlistFullInfo, loading, error };

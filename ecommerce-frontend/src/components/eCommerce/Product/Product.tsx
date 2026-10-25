@@ -14,7 +14,7 @@ import LikeFill from "@assets/svg/like-fill.svg"
 
 // Antd Components
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { Spin, message } from 'antd';
 
 
 
@@ -24,6 +24,8 @@ import type { Product } from "../../../types"
 
 // Main Product Function Component
 export default memo(function Product({ product }: { product: Product }) {
+
+
     const dispatch = useAppDispatch();
 
     //Cart Quantity Logic
@@ -37,23 +39,47 @@ export default memo(function Product({ product }: { product: Product }) {
     const toggleLikeHandler = async () => {
 
         if (isLoading) return; // Prevent multiple clicks while loading
-        setIsLoading(true)
-        try {
-            await dispatch(toggleLikeProduct(product.id)).unwrap()
+        if (product.isAuthenticated) {
+            setIsLoading(true)
+            try {
+                await dispatch(toggleLikeProduct(product.id))
+                    .unwrap()
+                    .then(() => setIsLoading(false))
+                    .catch(() => setIsLoading(false))
+            }
+            catch {
+                console.error("Error toggling like product")
+            }
+            finally {
+                setIsLoading(false)
+            }
+        } else {
+            info()
         }
-        catch {
-            console.error("Error toggling like product")
-        }
-        finally {
-            setIsLoading(false)
-        }
+
     }
     //Loading of Like button is handled in the wishlistSlice
     const [isLoading, setIsLoading] = useState(false);
 
+    // Show Modal for Like toggle
+    const [messageApi, contextHolder] = message.useMessage();
+
+    const info = () => {
+        messageApi.info('You Must Login to add it on Whishlist');
+    };
+
 
     return (
         <>
+            <>
+                {contextHolder}
+                {/* <Modal
+                    open={showModal}
+
+                >
+                    <p>You Should Login to put Like on it</p>
+                </Modal> */}
+            </>
             <Card
                 hoverable
                 style={{ width: 240 }}

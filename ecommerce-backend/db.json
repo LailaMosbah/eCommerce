@@ -162,5 +162,48 @@
       "max_quantity": 4
     }
   ],
-  "wishlist": []
+  "wishlist": [
+    {
+      "userId": 1,
+      "productId": 3,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "productId": 1,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "productId": 2,
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "productId": 3,
+      "id": 5
+    },
+    {
+      "userId": 8,
+      "productId": 2,
+      "id": 7
+    },
+    {
+      "userId": 8,
+      "productId": 5,
+      "id": 8
+    },
+    {
+      "productId": 1,
+      "id": 9
+    },
+    {
+      "productId": 2,
+      "id": 10
+    },
+    {
+      "productId": 3,
+      "id": 11
+    }
+  ]
 }

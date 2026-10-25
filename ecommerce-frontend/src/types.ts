@@ -22,6 +22,7 @@ interface Product {
   quantity?: number;
   max_quantity: number;
   isLiked?: boolean;
+  isAuthenticated?: boolean;
 }
 
 interface ProductsState {
