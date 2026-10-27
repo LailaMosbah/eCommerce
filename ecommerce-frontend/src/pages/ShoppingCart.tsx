@@ -5,7 +5,7 @@ import { CartItemList, CartSubtotalPrice } from "../components/eCommerce/index";
 import { Loading, LottiesHandler } from "@components/feedback";
 
 export default function ShoppingCart() {
-    const { loading, error, products, changeQuantityHandler, removeCartItemHandler } = useCart();
+    const { loading, error, products, changeQuantityHandler, removeCartItemHandler, userAccessToken } = useCart();
     return (
         <>
             <h1>Shopping Cart</h1>
@@ -13,7 +13,7 @@ export default function ShoppingCart() {
                 {
                     products.length > 0 ?
                         <>
-                            <CartSubtotalPrice products={products} />
+                            <CartSubtotalPrice userAccessToken={userAccessToken} products={products} />
                             <CartItemList
                                 products={products}
                                 changeQuantityHandler={changeQuantityHandler}

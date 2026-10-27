@@ -1,13 +1,19 @@
+//React 
 import { memo } from 'react';
+
+// Components
+
+
+// Ant Design
 import { Button, InputNumber } from 'antd';
 import { Form } from 'antd';
 import type { InputNumberProps } from 'antd';
 
-
+// Types and Styles
 import type { Product } from "../../../types";
-
 import styles from "./styles.module.css";
-const { cartItem, product, productImg, productInfo, cartItemSelection } = styles;
+import ProductInfo from '../ProductInfo/ProductInfo';
+const { cartItem, product, cartItemSelection } = styles;
 
 type ShoppingCartItemProps = Product & {
     changeQuantityHandler: (id: number, quantity: number) => void
@@ -27,16 +33,7 @@ function ShoppingCartItem({ id, img, price, title, max_quantity, quantity, chang
         <>
             <div className={cartItem}>
                 <div className={product}>
-                    <div className={productImg}>
-                        <img
-                            src={img}
-                            alt={title}
-                        />
-
-                    </div>
-                    <div className={productInfo}>
-                        <h2>{title}</h2>
-                        <h3>{price} EGP</h3>
+                    <ProductInfo title={title} img={img} price={price}>
                         <Button
                             variant="solid"
                             style={{ color: "black" }}
@@ -45,20 +42,21 @@ function ShoppingCartItem({ id, img, price, title, max_quantity, quantity, chang
                         >
                             Remove
                         </Button>
-                    </div>
-                </div>
+                    </ProductInfo>
 
-                <div className={cartItemSelection}>
-                    <span className="d-block mb-1">Quantity</span>
-                    {/* <Form.Select aria-label="Default select example">
+                </div>
+            </div>
+
+            <div className={cartItemSelection}>
+                <span className="d-block mb-1">Quantity</span>
+                {/* <Form.Select aria-label="Default select example">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </Form.Select> */}
-                    <Form.Item label="InputNumber">
-                        <InputNumber max={max_quantity} min={1} value={quantity} onChange={changeQuantity} />
-                    </Form.Item>
-                </div>
+                <Form.Item label="InputNumber">
+                    <InputNumber max={max_quantity} min={1} value={quantity} onChange={changeQuantity} />
+                </Form.Item>
             </div>
 
 

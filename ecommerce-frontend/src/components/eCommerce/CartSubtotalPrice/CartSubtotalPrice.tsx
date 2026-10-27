@@ -1,10 +1,12 @@
+import { Button } from "antd";
 import type { Product } from "../../../types";
 import styles from "./styles.module.css";
 
 type CartSubtotalPriceProps = {
-    products: Product[]
+    products: Product[],
+    userAccessToken: string | null
 }
-export default function CartSubtotalPrice({ products }: CartSubtotalPriceProps) {
+export default function CartSubtotalPrice({ products, userAccessToken }: CartSubtotalPriceProps) {
 
     const subTotal = products.reduce((accumulator, product) => {
         const price = +product.price;
@@ -20,6 +22,17 @@ export default function CartSubtotalPrice({ products }: CartSubtotalPriceProps) 
                 <span>Subtotal:</span>
                 <span>{subTotal.toFixed(2)}</span>
             </div>
+
+            {(userAccessToken) &&
+                <div className={styles.container}>
+                    <span>
+                        <Button variant="solid">
+                            Place Order
+                        </Button>
+                    </span>
+                </div>
+            }
+
         </>
     )
 }

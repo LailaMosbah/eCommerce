@@ -38,6 +38,13 @@ interface WishListState {
   productsFullInfo: Product[];
 }
 
+type OrderItem = {
+  id: number;
+  userId: number;
+  subtotal: number;
+  items: Product[];
+};
+
 // Guards
 const isString = (value: unknown): value is string => {
   return typeof value === "string";
@@ -50,6 +57,7 @@ export type {
   Product,
   ProductsState,
   WishListState,
+  OrderItem,
 };
 
 export { isString };

@@ -5,8 +5,7 @@ import { addToCart } from "../../../features/cart/cartSlice";
 import { toggleLikeProduct } from "@features/wishlist/wishlistSlice"
 
 //Components and assests
-import { Button, Card } from 'antd';
-const { Meta } = Card;
+import ProductInfo from "../ProductInfo/ProductInfo";
 
 import styles from "./styles.module.css"
 import Like from "@assets/svg/like.svg"
@@ -15,7 +14,8 @@ import LikeFill from "@assets/svg/like-fill.svg"
 // Antd Components
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin, message } from 'antd';
-
+import { Button, Card } from 'antd';
+const { Meta } = Card;
 
 
 import type { Product } from "../../../types"
@@ -80,17 +80,8 @@ export default memo(function Product({ product }: { product: Product }) {
                     <p>You Should Login to put Like on it</p>
                 </Modal> */}
             </>
-            <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={
-                    <img
-                        draggable={false}
-                        alt="example"
-                        src={product.img}
-                    />
-                }
-            >
+
+            <ProductInfo title={product.title} price={product.price} img={product.img} >
                 <Button
                     type="text"
                     className={styles.wishListBtn}
@@ -125,7 +116,8 @@ export default memo(function Product({ product }: { product: Product }) {
                     Add to Cart
                 </Button>
                 <Meta title={product.title} description={product.price} />
-            </Card>
+            </ProductInfo>
+
         </>
     )
 }
