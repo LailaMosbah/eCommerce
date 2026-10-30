@@ -7,7 +7,7 @@ import { actOrderPlace } from "@features/orders/ordersThunk";
 import { clearCartAfterPlaceOrder } from "@features/cart/cartSlice";
 
 // Ant design
-import { Button, Modal, Spin } from "antd";
+import { Button, Modal } from "antd";
 import styles from "./styles.module.css";
 
 import type { Product } from "../../../types";

@@ -7,22 +7,25 @@ import {
   cartItemRemove,
   clearCartProductsFullInfo,
 } from "../features/cart/cartSlice";
+import { resetOrderPlaceStatus } from "@features/orders/ordersSlice";
 
+//Hook
 const useCart = () => {
   const dispatch = useAppDispatch();
   const { productsFullInfo, items, loading, error } = useAppSelector(
     (state) => state.cart,
   );
   const userAccessToken = useAppSelector((state) => state.auth.accessToken);
+  const placeOrderStatus = useAppSelector((state) => state.orders.loading);
 
   useEffect(() => {
     const promise = dispatch(getProductsByItems());
     return () => {
       promise.abort(); // Cancel the request if the component unmounts
       dispatch(clearCartProductsFullInfo());
+      dispatch(resetOrderPlaceStatus());
     };
   }, [dispatch]);
-  console.log("rendering");
 
   const products = productsFullInfo.map((product) => ({
     ...product,
@@ -50,6 +53,7 @@ const useCart = () => {
     error,
     products,
     userAccessToken,
+    placeOrderStatus,
     changeQuantityHandler,
     removeCartItemHandler,
   };

@@ -1,8 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
-import type { RootState } from "@app/store";
 
+//types
+import type { RootState } from "@app/store";
+import type { OrderItem } from "../../types";
+
+type ResponseGetOrder = OrderItem[];
+
+// Order Place
 const actOrderPlace = createAsyncThunk(
   "orders/actOrderPlace",
   async (subtotal: number, thunkAPI) => {
@@ -30,4 +36,23 @@ const actOrderPlace = createAsyncThunk(
   },
 );
 
-export { actOrderPlace };
+// Get Orders by User
+const actGetOrders = createAsyncThunk(
+  "orders/actGetOrders",
+  async (_, thunkAPI) => {
+    const { rejectWithValue, getState, signal } = thunkAPI;
+    const { auth } = getState() as RootState;
+
+    try {
+      const res = await axios.get<ResponseGetOrder>(
+        `/orders?userId=${auth.user?.id}`,
+        { signal },
+      );
+
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(axiosErrorHandler(error));
+    }
+  },
+);
+export { actOrderPlace, actGetOrders };

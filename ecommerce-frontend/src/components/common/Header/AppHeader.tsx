@@ -100,7 +100,7 @@ const AppHeader: React.FC = () => {
 
     const userMenuItems: MenuProps['items'] = [
         { label: <Link to="/profile">My Profile</Link>, key: 'profile' },
-        { label: <Link to="/orders">My Orders</Link>, key: 'orders' },
+        { label: <Link to="/profile/orders">My Orders</Link>, key: 'orders' },
         { label: <Link to="/wishlist">Wishlist</Link>, key: 'wishlist' },
         { type: 'divider' },
         { label: <Link to="/" onClick={() => dispatch(authLogout())}>Logout</Link>, key: 'logout' },

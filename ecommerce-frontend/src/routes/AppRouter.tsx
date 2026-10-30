@@ -8,6 +8,7 @@ import { LottiesHandler } from '@components/feedback';
 
 // Layouts
 const MainLayout = lazy(() => import('@layouts/MainLayout/MainLayout'));
+const ProfileLayout = lazy(() => import("@layouts/ProfileLayout/ProfileLayout"))
 
 // Protected Route
 import ProtectedRoute from '@components/auth/ProtectedRoute';
@@ -22,7 +23,8 @@ const Signup = lazy(() => import('@pages/Signup'));
 const ErrorPage = lazy(() => import('@pages/ErrorPage'));
 const ShoppingCart = lazy(() => import('@pages/ShoppingCart'));
 const Wishlist = lazy(() => import('@pages/Wishlist'));
-const Profile = lazy(() => import("@pages/Profile"))
+const Account = lazy(() => import("@pages/Account"))
+const Orders = lazy(() => import("@pages/Orders"))
 
 
 const router = createBrowserRouter([
@@ -79,9 +81,24 @@ const router = createBrowserRouter([
                 element:
                     <ProtectedRoute>
                         <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}>
-                            <Profile />
+                            <ProfileLayout />
                         </Suspense>
                     </ProtectedRoute>,
+                children: [
+                    {
+                        index: true, element:
+                            <Suspense>
+                                <Account />
+                            </Suspense>
+                    },
+                    {
+                        path: 'orders',
+                        element:
+                            <Suspense>
+                                <Orders />
+                            </Suspense>
+                    }
+                ]
             }
         ]
     }

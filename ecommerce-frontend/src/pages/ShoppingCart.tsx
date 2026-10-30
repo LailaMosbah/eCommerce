@@ -4,8 +4,10 @@ import useCart from "../hooks/useCart";
 import { CartItemList, CartSubtotalPrice } from "../components/eCommerce/index";
 import { Loading, LottiesHandler } from "@components/feedback";
 
+
+
 export default function ShoppingCart() {
-    const { loading, error, products, changeQuantityHandler, removeCartItemHandler, userAccessToken } = useCart();
+    const { loading, error, products, changeQuantityHandler, removeCartItemHandler, userAccessToken, placeOrderStatus } = useCart();
     return (
         <>
             <h1>Shopping Cart</h1>
@@ -19,8 +21,12 @@ export default function ShoppingCart() {
                                 changeQuantityHandler={changeQuantityHandler}
                                 removeCartItemHandler={removeCartItemHandler} />
                         </>
-                        :
-                        <LottiesHandler type="empty" message="Your shopping cart is empty." />
+                        : (
+                            placeOrderStatus == "succeeded" ?
+                                <LottiesHandler type="sucess" message="Your order has been placed successfully." />
+                                :
+                                <LottiesHandler type="empty" message="Your shopping cart is empty." />
+                        )
                 }
 
             </Loading>

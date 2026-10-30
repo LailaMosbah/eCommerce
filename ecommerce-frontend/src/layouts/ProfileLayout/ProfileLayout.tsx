@@ -1,22 +1,44 @@
+// React
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+
+// Ant desing
+import { Row, Col, Menu } from "antd";
 
 
-const ProfileLayout: React.FC = () => {
+const ProfileLayout = () => {
+    const location = useLocation();
+
+    // تحديد العنصر المفعل بناءً على المسار الحالي
+    // (هنا نفترض أن المسار الأساسي هو حساب المستخدم والآخر هو orders)
+    const getSelectedKey = () => {
+        if (location.pathname.endsWith("/orders")) {
+            return ["orders"];
+        }
+        return ["account"];
+    };
+
     return (
-        <div className="profile-layout">
-            <header className="profile-header">
-                <h1>Profile</h1>
-            </header>
-            <main className="profile-main">
-                <section className="profile-info">
-                    <h2>Personal Information</h2>
-                    {/* Add profile info content here */}
-                </section>
-                <section className="profile-settings">
-                    <h2>Settings</h2>
-                    {/* Add profile settings content here */}
-                </section>
-            </main>
-        </div>
+        <Row gutter={16}>
+            <Col xs={24} md={6}>
+                <Menu
+                    mode="inline"
+                    selectedKeys={getSelectedKey()}
+                    items={[
+                        {
+                            key: "account",
+                            label: <NavLink to="" end>Account Info</NavLink>,
+                        },
+                        {
+                            key: "orders",
+                            label: <NavLink to="orders">Orders</NavLink>,
+                        },
+                    ]}
+                />
+            </Col>
+            <Col xs={24} md={18}>
+                <Outlet />
+            </Col>
+        </Row>
     );
 };
 
