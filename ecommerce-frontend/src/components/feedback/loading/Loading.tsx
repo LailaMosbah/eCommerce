@@ -3,6 +3,7 @@ import type { Loading } from '../../../types'
 import CategorySkeleton from "../skeleton/categorySkeleton/categorySkeleton"
 import ProductSkeleton from "../skeleton/productSkeleton/ProductSkeleton"
 import CartSkeleton from "../skeleton/cartSkeleton/CartSkeleton"
+import TableSkeleton from "../skeleton/tableSkeleton/TableSkeleton"
 
 import LottiesHandler from '../lottiesHandler/LottiesHandler'
 
@@ -10,6 +11,7 @@ const skeletonComponents = {
     category: CategorySkeleton,
     product: ProductSkeleton,
     cart: CartSkeleton,
+    table: TableSkeleton,
 };
 
 type LoadingProps = {
