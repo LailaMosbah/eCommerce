@@ -1,0 +1,42 @@
+:root {
+    /* Brand Colors */
+    --color-primary: #1A1A1A;
+    --color-secondary: #ec552b;
+    --color-accent: #F4EDE4;
+
+    /* Background Colors */
+    --color-bg-main: #FAF7F5;
+    --color-bg-secondary: #F4EDE4;
+    --color-bg-card: #FFFFFF;
+
+    /* Text Colors */
+    --color-text-primary: #1A1A1A;
+    --color-text-secondary: #6B6B6B;
+    --color-text-inverse: #FFFFFF;
+
+    /* Status Colors */
+    --color-success: #81B29A;
+    --color-sale: #ec552b;
+    --color-kids: #F2A69A;
+
+    /* Border Colors */
+    --color-border: #E8E1DA;
+
+    /* Typography */
+    --font-family-base: "DM Sans", "Cairo", sans-serif;
+    --font-family-heading: "DM Sans", "Cairo", sans-serif;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 999px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.05);
+    --shadow-md: 0 4px 16px rgba(26, 26, 26, 0.08);
+
+    /* Transitions */
+    --transition-base: 0.3s ease;
+}

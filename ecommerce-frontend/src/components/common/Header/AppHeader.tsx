@@ -223,7 +223,6 @@ const HeaderApp: React.FC = () => {
                     ) : (
                         <div className={styles.header__auth}>
                             <Button
-                                type="primary"
                                 className={styles.header__authButton}
                             >
                                 <NavLink

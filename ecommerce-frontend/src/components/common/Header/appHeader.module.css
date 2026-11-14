@@ -6,13 +6,12 @@
     top: 0;
     z-index: 1000;
     padding: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
+    background-color: var(--color-secondary);
+    transition: box-shadow 0.3s ease;
 }
 
 .header--scrolled {
-    transform: translateY(0);
-    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
 }
 
 .header__container {
@@ -35,62 +34,102 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--color-accent);
     text-decoration: none;
-    transition: transform 0.2s ease;
+    transition: opacity 0.3s ease;
 }
 
 .header__logoLink:hover {
-    transform: scale(1.05);
+    color: var(--color-accent);
+    opacity: 0.8;
 }
 
 .header__logoIcon {
     font-size: 28px;
-    transition: transform 0.3s ease;
-}
-
-.header__logoLink:hover .header__logoIcon {
-    transform: rotate(5deg);
 }
 
 .header__logoText {
     font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, currentColor 0%, currentColor 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    color: var(--color-accent);
 }
 
 /* ====================== Navigation ====================== */
+/* ====================== Desktop Navigation ====================== */
+
 .header__nav {
     flex: 1;
     justify-content: center;
-    border-bottom: none;
     min-width: 0;
     margin: 0 24px;
+    background-color: transparent;
+    border-bottom: none;
+    display: flex;
 }
 
+/* Default Menu Item - not selected */
 .header__nav :global(.ant-menu-item) {
-    transition: all 0.3s ease;
-    font-weight: 500;
-    border-radius: 8px;
-    margin: 0 4px;
+    color: var(--color-accent);
+    border-radius: var(--radius-lg);
+    margin-inline: 4px;
+    transition: all 0.25s ease;
+    padding: 10px;
 }
 
-.header__nav :global(.ant-menu-item:hover) {
-    transform: translateY(-2px);
+/* Menu Icons - icon - not selected*/
+.header__nav :global(.ant-menu-item .anticon) {
+    color: var(--color-accent);
 }
 
-.header__nav :global(.ant-menu-submenu-title) {
-    transition: all 0.3s ease;
-    border-radius: 8px;
+/* Hover - the word when hovered */
+.header__nav :global(.ant-menu-item:hover),
+.header__nav :global(.ant-menu-item:hover)::after {
+    color: var(--color-text-inverse) !important;
+    background-color: rgba(244, 237, 228, 0.15) !important;
+    border-bottom-color: var(--color-accent) !important;
+    border-radius: var(--radius-lg);
 }
 
-.header__nav :global(.ant-menu-submenu-title:hover) {
-    transform: translateY(-2px);
+/* Hover Icons */
+.header__nav :global(.ant-menu-item:hover .anticon) {
+    color: var(--color-accent);
+}
+
+/* Selected Item */
+.header__nav :global(.ant-menu-item-selected),
+.header__nav :global(.ant-menu-item-selected)::after {
+    color: var(--color-accent) !important;
+    background-color: rgba(244, 237, 228, 0.22);
+    border-bottom-color: var(--color-accent) !important;
+    border-radius: var(--radius-lg);
+}
+
+/* Selected Icons */
+.header__nav :global(.ant-menu-item-selected .anticon) {
+    color: var(--color-accent);
+}
+
+/* Remove Ant Design Selected Underline */
+/* .header__nav :global(.ant-menu-item-selected::after) {
+    border-bottom: none !important;
+} */
+
+/* Remove Default Active Underline */
+.header__nav :global(.ant-menu-item::after:hover) {
+    border-bottom-color: var(--color-accent) !important;
+}
+
+/* Link */
+.header__nav :global(.ant-menu-title-content a) {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
 }
 
 /* ====================== Actions ====================== */
+
 .header__actions {
     display: flex;
     align-items: center;
@@ -98,85 +137,58 @@
     flex-shrink: 0;
 }
 
+/* Icons */
 .header__iconButton {
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+
+    color: var(--color-accent);
     border-radius: 50%;
+    transition: all 0.25s ease;
 }
 
 .header__iconButton:hover {
-    transform: scale(1.1);
+    color: var(--color-accent) !important;
+    background-color: rgba(244, 237, 228, 0.18);
 }
 
+/* Badge */
 .header__badge :global(.ant-badge-count) {
     box-shadow: none;
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+    font-weight: 600;
 }
 
-/* ====================== Search ====================== */
-.header__search {
-    position: relative;
-}
-
-.header__searchForm {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.header__searchInput {
-    width: 250px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.header__searchInput:focus {
-    width: 300px;
-}
-
-.header__searchButton,
-.header__searchClose {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ====================== User Button ====================== */
-.header__userButton {
+/* User Button */
+.header__userButton,
+.header__userButton_mobile {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 0 12px;
     height: 40px;
     border-radius: 20px;
-    transition: all 0.3s ease;
+
+    color: var(--color-accent);
+    transition: all 0.25s ease;
+}
+
+.header__userButton_mobile {
+    color: var(--color-secondary);
 }
 
 .header__userButton:hover {
-    transform: translateY(-2px);
+    color: var(--color-accent) !important;
+    background-color: rgba(244, 237, 228, 0.18);
+}
+
+.header__userButton_mobile:hover {
+    color: var(--color-secondary) !important;
+    background-color: rgba(244, 237, 228, 0.18);
 }
 
 .header__userText {
@@ -192,7 +204,7 @@
     transform: rotate(180deg);
 }
 
-/* ====================== Auth Buttons ====================== */
+/* Auth Buttons */
 .header__auth {
     display: flex;
     gap: 8px;
@@ -200,74 +212,172 @@
 }
 
 .header__authButton {
-    border-radius: 20px;
-    padding: 0 20px;
     height: 40px;
+    padding: 0 20px;
+    border-radius: var(--radius-full);
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
-.header__authButton:hover {
-    transform: translateY(-2px);
+/* Sign up Button */
+.header__authButton:first-child {
+    background-color: var(--color-bg-main);
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
 }
 
-/* ====================== Hamburger ====================== */
+.header__authButton:first-child:hover {
+    background-color: var(--color-bg-secondary) !important;
+    color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+}
+
+/* Login Button */
+.header__authButton:last-child {
+    background-color: var(--color-secondary);
+    color: var(--color-bg-main);
+    border-color: var(--color-bg-main);
+
+}
+
+.header__authButton:last-child:hover {
+    background-color: var(--color-bg-secondary) !important;
+    color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+}
+
+
+
+/* Hamburger */
 .header__hamburger {
     display: none;
     width: 40px;
     height: 40px;
+    color: var(--color-accent);
 }
 
-/* ====================== Drawer ====================== */
+.header__hamburger:hover {
+    color: var(--color-accent) !important;
+    background-color: rgba(244, 237, 228, 0.18);
+}
+
+/* ====================== Mobile Drawer ====================== */
+
+.header__drawer :global(.ant-drawer-content) {
+    background-color: var(--color-secondary);
+    color: var(--color-accent);
+}
+
 .header__drawer :global(.ant-drawer-header) {
     padding: 16px 24px;
-    border-bottom: none;
+    background-color: var(--color-secondary);
+    border-bottom: 1px solid rgba(244, 237, 228, 0.2);
 }
 
-.header__drawerTitle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+.header__drawer :global(.ant-drawer-title) {
+    color: var(--color-accent);
+}
+
+.header__drawer :global(.ant-drawer-close) {
+    color: var(--color-accent);
+}
+
+.header__drawer :global(.ant-drawer-close:hover) {
+    color: var(--color-accent);
+    background-color: rgba(244, 237, 228, 0.15);
 }
 
 .header__drawerLogo {
     font-size: 20px;
     font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
 }
 
+.header__drawerLogo:hover {
+    color: var(--color-accent);
+}
+
+/* Mobile Menu */
 .header__navMobile {
-    border-right: none;
     margin-top: 24px;
+    background-color: transparent;
+    border-inline-end: none;
 }
 
 .header__navMobile :global(.ant-menu-item) {
-    padding: 12px 24px !important;
-    height: auto;
-    margin: 0;
-    border-radius: 0;
-    transition: all 0.3s ease;
+    height: 48px;
+    margin: 4px 0;
+    padding-inline: 16px !important;
+    border-radius: var(--radius-md);
+
+    color: var(--color-secondary);
+    background-color: transparent;
+
+    transition: all 0.25s ease;
 }
 
+.header__navMobile :global(.ant-menu-item .anticon) {
+    color: var(--color-secondary);
+}
+
+/* Mobile Hover */
 .header__navMobile :global(.ant-menu-item:hover) {
-    padding-left: 32px !important;
+    color: var(--color-secondary) !important;
+    background-color: rgba(244, 237, 228, 0.15);
 }
 
+/* Mobile Selected */
+.header__navMobile :global(.ant-menu-item-selected) {
+    color: var(--color-secondary) !important;
+    background-color: rgba(244, 237, 228, 0.253);
+}
+
+.header__navMobile :global(.ant-menu-item-selected .anticon) {
+    color: var(--color-secondary);
+}
+
+/* Remove selected indicator */
+.header__navMobile :global(.ant-menu-item::after) {
+    border-inline-end: none !important;
+}
+
+/* Drawer Footer */
 .header__drawerFooter {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
+
     padding: 24px;
     display: flex;
     gap: 12px;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-top: 1px solid rgba(244, 237, 228, 0.2);
 }
 
 .header__drawerButton {
     height: 44px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-weight: 500;
+    color: var(--color-secondary);
+}
+
+/* Mobile Auth Buttons */
+.header__drawerButton:first-child {
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+    border-color: var(--color-accent);
+}
+
+.header__drawerButton:last-child {
+    background-color: transparent;
+    color: var(--color-secondary);
+    border-color: var(--color-accent);
+}
+
+.header__drawerButton:hover {
+    opacity: 0.85;
 }
 
 /* ====================== Responsive Design ====================== */

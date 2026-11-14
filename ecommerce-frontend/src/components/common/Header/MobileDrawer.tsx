@@ -69,9 +69,9 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
                         <Button
                             type="text"
                             icon={<UserOutlined />}
-                            className={styles.header__userButton}
+                            className={styles.header__userButton_mobile}
                         >
-                            <span className={styles.header__userText}>
+                            <span className={styles.header__userText_mobile}>
                                 Welcome {user?.firstName} {user?.lastName}
                             </span>
 
@@ -81,13 +81,12 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 ) : (
                     <>
                         <Button
-                            type="primary"
+                            // type="primary"
                             block
-                            className={styles.header__drawerButton}
+                            className={styles.header__authButton}
                         >
                             <NavLink
                                 to="/signup"
-                                className={styles.header__authLink}
                                 onClick={onClose}
                             >
                                 Sign Up
@@ -96,7 +95,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
                         <Button
                             block
-                            className={styles.header__drawerButton}
+                            className={styles.header__authButton}
                         >
                             <NavLink
                                 to="/login"

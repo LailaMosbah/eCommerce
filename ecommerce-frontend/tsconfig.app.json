@@ -31,7 +31,9 @@
       "@loaders/*": ["./src/loaders/*"],
       "@app/*": ["./src/app/*"],
       "@features/*": ["./src/features/*"],
-      "@validations/*": ["./src/validations/*"]
+      "@validations/*": ["./src/validations/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@themes/*": ["./src/themes/*"]
     },
 
     /* Linting */

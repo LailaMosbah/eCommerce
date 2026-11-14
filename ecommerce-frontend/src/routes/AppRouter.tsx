@@ -25,6 +25,7 @@ const ShoppingCart = lazy(() => import('@pages/ShoppingCart'));
 const Wishlist = lazy(() => import('@pages/Wishlist'));
 const Account = lazy(() => import("@pages/Account"))
 const Orders = lazy(() => import("@pages/Orders"))
+const ContactUs = lazy(() => import("@pages/ContactUs"))
 
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><AboutUs /></Suspense>,
+            },
+            {
+                path: "/contact",
+                element: <Suspense fallback={<LottiesHandler type="loading" message="Loading..." />}><ContactUs /></Suspense>,
             },
             {
                 path: "/cart",

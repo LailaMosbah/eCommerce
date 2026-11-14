@@ -20,6 +20,8 @@ export default defineConfig({
       "@app": path.resolve(__dirname, "src/app"),
       "@features": path.resolve(__dirname, "src/features"),
       "@validations": path.resolve(__dirname, "src/validations"),
+      "@styles": path.resolve(__dirname, "src/styles"),
+      "@themes": path.resolve(__dirname, "src/themes"),
     },
   },
 });
