@@ -6,7 +6,7 @@
     top: 0;
     z-index: 1000;
     padding: 0;
-    background-color: var(--color-secondary);
+    background-color: var(--color-primary);
     transition: box-shadow 0.3s ease;
 }
 
@@ -110,10 +110,7 @@
     color: var(--color-accent);
 }
 
-/* Remove Ant Design Selected Underline */
-/* .header__nav :global(.ant-menu-item-selected::after) {
-    border-bottom: none !important;
-} */
+
 
 /* Remove Default Active Underline */
 .header__nav :global(.ant-menu-item::after:hover) {
@@ -219,33 +216,6 @@
     transition: all 0.25s ease;
 }
 
-/* Sign up Button */
-.header__authButton:first-child {
-    background-color: var(--color-bg-main);
-    color: var(--color-secondary);
-    border-color: var(--color-secondary);
-}
-
-.header__authButton:first-child:hover {
-    background-color: var(--color-bg-secondary) !important;
-    color: var(--color-secondary) !important;
-    border-color: var(--color-secondary) !important;
-}
-
-/* Login Button */
-.header__authButton:last-child {
-    background-color: var(--color-secondary);
-    color: var(--color-bg-main);
-    border-color: var(--color-bg-main);
-
-}
-
-.header__authButton:last-child:hover {
-    background-color: var(--color-bg-secondary) !important;
-    color: var(--color-secondary) !important;
-    border-color: var(--color-secondary) !important;
-}
-
 
 
 /* Hamburger */
@@ -270,7 +240,7 @@
 
 .header__drawer :global(.ant-drawer-header) {
     padding: 16px 24px;
-    background-color: var(--color-secondary);
+    background-color: var(--color-primary);
     border-bottom: 1px solid rgba(244, 237, 228, 0.2);
 }
 
@@ -322,19 +292,20 @@
 }
 
 /* Mobile Hover */
-.header__navMobile :global(.ant-menu-item:hover) {
-    color: var(--color-secondary) !important;
+.header__navMobile :global(.ant-menu-item:hover),
+.header__navMobile :global(.ant-menu-item:hover .anticon) {
+    color: var(--color-primary) !important;
     background-color: rgba(244, 237, 228, 0.15);
 }
 
 /* Mobile Selected */
 .header__navMobile :global(.ant-menu-item-selected) {
-    color: var(--color-secondary) !important;
+    color: var(--color-primary) !important;
     background-color: rgba(244, 237, 228, 0.253);
 }
 
 .header__navMobile :global(.ant-menu-item-selected .anticon) {
-    color: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 /* Remove selected indicator */
@@ -363,18 +334,7 @@
     color: var(--color-secondary);
 }
 
-/* Mobile Auth Buttons */
-.header__drawerButton:first-child {
-    background-color: var(--color-accent);
-    color: var(--color-secondary);
-    border-color: var(--color-accent);
-}
 
-.header__drawerButton:last-child {
-    background-color: transparent;
-    color: var(--color-secondary);
-    border-color: var(--color-accent);
-}
 
 .header__drawerButton:hover {
     opacity: 0.85;

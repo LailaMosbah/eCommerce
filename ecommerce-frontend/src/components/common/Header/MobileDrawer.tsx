@@ -81,7 +81,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 ) : (
                     <>
                         <Button
-                            // type="primary"
+                            type="primary"
                             block
                             className={styles.header__authButton}
                         >

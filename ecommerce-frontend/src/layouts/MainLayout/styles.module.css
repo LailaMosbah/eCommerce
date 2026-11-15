@@ -1,9 +1,11 @@
 .container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: var(--color-bgMain);
 }
 
 .wrapper {
     margin-top: 30px;
+    flex: 1;
 }
