@@ -1,65 +1,266 @@
-/* column dir */
+/* ============================================
+   ProductInfo — shared layout (BEM)
+   Used in: Product card, Cart, Wishlist, Single Product
+   ============================================ */
+
+/* ---------- Base containers ---------- */
+
+.product-row,
 .product-column {
     display: flex;
+    gap: 16px;
+    font-family: var(--font-family-base);
+    color: var(--color-text-primary);
 }
 
-.product-column h2 {
-    font-size: 16px;
-    margin-bottom: 12px;
-    width: 100%;
-}
-
-.product-column h3 {
-    font-size: 13px;
-}
-
-.productImg-column img {
-    height: 180px;
-    background-color: #f2f2f2;
-    display: block;
-}
-
-.productInfo-column {
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    width: 140px;
-}
-
-/* row dir */
 .product-row {
-    width: 130px;
-    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.product-column {
     flex-direction: column;
-    justify-content: space-between;
+    align-items: stretch;
+    height: 100%;
+}
+
+/* ---------- Image wrappers ---------- */
+
+.productImg-row,
+.productImg-column {
     position: relative;
-}
-
-.product-row h2 {
-    font-size: 14px;
-    margin-top: 9px;
-    margin-bottom: 12px;
-    width: 100%;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.product-row h3 {
-    font-size: 13px;
+    background: var(--color-bg-secondary);
+    flex-shrink: 0;
 }
 
 .productImg-row {
-    height: 180px;
-    background-color: #f2f2f2;
-    display: block;
+    width: 140px;
+    border-radius: var(--radius-md);
 }
 
-.productImg-row img {
-    height: 100%;
+.productImg-column {
     width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-lg);
+}
+
+.productImg-row img,
+.productImg-column img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Info wrappers ---------- */
+
+.productInfo-row,
+.productInfo-column {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    /* allows text truncation */
 }
 
 .productInfo-row {
-    width: 100%;
+    flex: 1;
+    justify-content: center;
+}
+
+.productInfo-column {
+    flex: 1;
+    padding: 4px 0;
+}
+
+.productInfo-column h2,
+.productInfo-row h2 {
+    font-family: var(--font-family-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.35;
+    /* 2-line clamp */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.productInfo-column h3,
+.productInfo-row h3 {
+    font-family: var(--font-family-base);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* Price emphasis (first h3 = price) */
+.productInfo-column h3:first-of-type,
+.productInfo-row h3:first-of-type {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* ============================================
+   Elevated variant — applied inside product cards
+   Adds hover flourish without affecting other usages
+   ============================================ */
+
+.product--elevated {
+    position: relative;
+    border-radius: var(--radius-xl) !important;
+    overflow: hidden;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base);
+    isolation: isolate;
+}
+
+/* Gradient ring on hover */
+.product--elevated::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+    padding: 2px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-kids));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.product--elevated:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+    border-color: transparent;
+}
+
+.product--elevated:hover::before {
+    opacity: 1;
+}
+
+/* Image zoom + subtle overlay */
+.product--elevated:hover .productImg-column img {
+    transform: scale(1.08);
+}
+
+.product--elevated .productImg-column::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(26, 26, 26, 0.45) 0%,
+            rgba(26, 26, 26, 0) 55%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.product--elevated:hover .productImg-column::after {
+    opacity: 1;
+}
+
+/* Padding only in elevated card (other usages stay flush) */
+.product--elevated .productInfo-column {
+    padding: 16px 18px 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.product--elevated .productInfo-column h2 {
+    transition: color var(--transition-base);
+}
+
+.product--elevated:hover .productInfo-column h2 {
+    color: var(--color-primary);
+}
+
+/* Animated underline under title */
+.product--elevated .productInfo-column h2::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    margin-top: 4px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    transition: width var(--transition-base);
+}
+
+.product--elevated:hover .productInfo-column h2::after {
+    width: 48px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+    .product-row {
+        gap: 12px;
+    }
+
+    .productImg-row {
+        width: 110px;
+    }
+
+    .productInfo-column h2,
+    .productInfo-row h2 {
+        font-size: 0.92rem;
+    }
+
+    .productInfo-column h3,
+    .productInfo-row h3 {
+        font-size: 0.85rem;
+    }
+
+    .product--elevated:hover {
+        transform: translateY(-4px);
+    }
+}
+
+@media (max-width: 480px) {
+    .productImg-row {
+        width: 90px;
+    }
+
+    .product--elevated .productInfo-column {
+        padding: 12px 10px 16px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .product--elevated,
+    .product--elevated::before,
+    .productImg-row img,
+    .productImg-column img,
+    .product--elevated .productInfo-column h2::after {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .product--elevated:hover {
+        transform: none;
+    }
+
+    .product--elevated:hover .productImg-column img {
+        transform: none;
+    }
 }

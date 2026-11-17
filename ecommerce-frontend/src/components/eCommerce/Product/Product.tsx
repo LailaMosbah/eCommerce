@@ -1,124 +1,109 @@
 import { memo, useState } from "react";
-//Redux
 import { useAppDispatch } from "../../../app/hooks";
 import { addToCart } from "../../../features/cart/cartSlice";
-import { toggleLikeProduct } from "@features/wishlist/wishlistSlice"
+import { toggleLikeProduct } from "@features/wishlist/wishlistSlice";
 
-//Components and assests
 import ProductInfo from "../ProductInfo/ProductInfo";
+import styles from "./styles.module.css";
+import Like from "@assets/svg/like.svg";
+import LikeFill from "@assets/svg/like-fill.svg";
 
-import styles from "./styles.module.css"
-import Like from "@assets/svg/like.svg"
-import LikeFill from "@assets/svg/like-fill.svg"
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin, message, Button } from "antd";
 
-// Antd Components
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin, message } from 'antd';
-import { Button, Card } from 'antd';
-const { Meta } = Card;
+import type { Product } from "../../../types";
 
-
-import type { Product } from "../../../types"
-
-
-
-// Main Product Function Component
 export default memo(function Product({ product }: { product: Product }) {
-
-
     const dispatch = useAppDispatch();
 
-    //Cart Quantity Logic
-    const currentRemainingQuantity = (Number(product.max_quantity) - ((product.quantity) ?? 0))
-    const isAddToCartDisabled = currentRemainingQuantity <= 0
+    // Cart Quantity Logic
+    const currentRemainingQuantity =
+        Number(product.max_quantity) - (product.quantity ?? 0);
+    const isAddToCartDisabled = currentRemainingQuantity <= 0;
+
     const addToCartHandler = () => {
-        dispatch(addToCart(product.id))
-    }
-
-    //Wishlist Logic
-    const toggleLikeHandler = async () => {
-
-        if (isLoading) return; // Prevent multiple clicks while loading
-        if (product.isAuthenticated) {
-            setIsLoading(true)
-            try {
-                await dispatch(toggleLikeProduct(product.id))
-                    .unwrap()
-                    .then(() => setIsLoading(false))
-                    .catch(() => setIsLoading(false))
-            }
-            catch {
-                console.error("Error toggling like product")
-            }
-            finally {
-                setIsLoading(false)
-            }
-        } else {
-            info()
-        }
-
-    }
-    //Loading of Like button is handled in the wishlistSlice
-    const [isLoading, setIsLoading] = useState(false);
-
-    // Show Modal for Like toggle
-    const [messageApi, contextHolder] = message.useMessage();
-
-    const info = () => {
-        messageApi.info('You Must Login to add it on Whishlist');
+        dispatch(addToCart(product.id));
     };
 
+    // Wishlist Logic
+    const [isLoading, setIsLoading] = useState(false);
+    const toggleLikeHandler = async () => {
+        if (isLoading) return;
+        if (product.isAuthenticated) {
+            setIsLoading(true);
+            try {
+                await dispatch(toggleLikeProduct(product.id)).unwrap();
+            } catch {
+                console.error("Error toggling like product");
+            } finally {
+                setIsLoading(false);
+            }
+        } else {
+            info();
+        }
+    };
+
+    // Modal for Like toggle
+    const [messageApi, contextHolder] = message.useMessage();
+    const info = () => {
+        messageApi.info("You Must Login to add it on Whishlist");
+    };
 
     return (
-        <>
-            <>
-                {contextHolder}
-                {/* <Modal
-                    open={showModal}
+        <article className={styles.card}>
+            {contextHolder}
 
-                >
-                    <p>You Should Login to put Like on it</p>
-                </Modal> */}
-            </>
-
-            <ProductInfo title={product.title} price={product.price} img={product.img} >
+            <ProductInfo
+                title={product.title}
+                price={product.price}
+                img={product.img}
+                direction="column"
+                style={{}}
+                /* ↓ opt-in to elevated card styling */
+                className="product--elevated"
+            >
                 <Button
                     type="text"
-                    className={styles.wishListBtn}
-                    aria-label={product.isLiked ? "Remove from wishlist" : "Add to wishlist"}
+                    className={`${styles.wishListBtn} ${product.isLiked ? styles["wishListBtn--active"] : ""
+                        }`}
+                    aria-label={
+                        product.isLiked ? "Remove from wishlist" : "Add to wishlist"
+                    }
                     onClick={toggleLikeHandler}
                 >
-                    {
-                        isLoading ? (
-                            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-                        ) :
-                            product.isLiked ? (
-                                <img
-                                    src={LikeFill}
-                                    alt="Liked"
-                                />
-                            ) : (
-                                <img
-                                    src={Like}
-                                    alt="Not liked"
-                                />
-                            )
-                    }
+                    {isLoading ? (
+                        <Spin
+                            indicator={<LoadingOutlined style={{ fontSize: 22 }} spin />}
+                        />
+                    ) : product.isLiked ? (
+                        <img src={LikeFill} alt="Liked" />
+                    ) : (
+                        <img src={Like} alt="Not liked" />
+                    )}
                 </Button>
 
-                {/* <p>Remaining Quantity: {currentRemainingQuantity}</p> */}
-                <p>{isAddToCartDisabled ? "Out of stock" : "In stock"}</p>
-                <p>{isAddToCartDisabled ? "" : `you can add ${currentRemainingQuantity} more items to your cart`}</p>
+                <span
+                    className={`${styles.stockBadge} ${isAddToCartDisabled ? styles["stockBadge--out"] : styles["stockBadge--in"]
+                        }`}
+                >
+                    <span className={styles.stockBadge__dot} />
+                    {isAddToCartDisabled ? "Out of stock" : "In stock"}
+                </span>
+
+                {!isAddToCartDisabled && (
+                    <p className={styles.qtyHint}>
+                        Add up to {currentRemainingQuantity} more
+                    </p>
+                )}
+
                 <Button
                     onClick={addToCartHandler}
                     disabled={isAddToCartDisabled}
+                    className={styles.addToCartBtn}
                 >
                     Add to Cart
                 </Button>
-                <Meta title={product.title} description={product.price} />
             </ProductInfo>
-
-        </>
-    )
-}
-)
+        </article>
+    );
+});

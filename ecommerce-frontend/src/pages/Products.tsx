@@ -1,27 +1,34 @@
-
-//Hooks
 import { useProducts } from "@hooks/useProducts";
-//Components
-import { Product } from "@components/eCommerce"
+import { Product } from "@components/eCommerce";
 import Loading from "@components/feedback/loading/Loading";
 import { GridList } from "@components/common";
+import styles from "./styles/products.module.css";
 
-
-// Products page component
 export default function Products() {
     const { productsFullInfo, loading, error } = useProducts();
 
     return (
-        <div>
-            <Loading status={loading} error={error} type="product">
-                <h1>products</h1>
-                {/* <Heading title={`${params.prefix?.toUpperCase()} Products`}/> */}
-                <GridList
-                    records={productsFullInfo}
-                    renderItem={(record) => <Product key={record.id} product={record} />}
-                    emptyMessage="No products found."
-                />
-            </Loading>
-        </div>
-    )
+        <section className={styles.page}>
+            <header className={styles.page__header}>
+                <h1 className={styles.page__title}>
+                    <span className={styles.page__titleHighlight}>Products</span>
+                </h1>
+                <p className={styles.page__subtitle}>
+                    Browse our hand-picked selection — quality you can feel.
+                </p>
+            </header>
+
+            <div className={styles.page__grid}>
+                <Loading status={loading} error={error} type="product">
+                    <GridList
+                        records={productsFullInfo}
+                        renderItem={(record) => (
+                            <Product key={record.id} product={record} />
+                        )}
+                        emptyMessage="No products found."
+                    />
+                </Loading>
+            </div>
+        </section>
+    );
 }

@@ -189,11 +189,6 @@
       "id": 7
     },
     {
-      "userId": 8,
-      "productId": 5,
-      "id": 8
-    },
-    {
       "productId": 1,
       "id": 9
     },
@@ -204,6 +199,16 @@
     {
       "productId": 3,
       "id": 11
+    },
+    {
+      "userId": 8,
+      "productId": 5,
+      "id": 12
+    },
+    {
+      "userId": 8,
+      "productId": 6,
+      "id": 13
     }
   ],
   "orders": [

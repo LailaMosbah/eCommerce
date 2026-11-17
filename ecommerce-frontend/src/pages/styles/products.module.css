@@ -1,0 +1,139 @@
+/* ============================================
+   Products Page
+   ============================================ */
+
+.page {
+    padding: 48px 24px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--color-bg-main);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative background blobs */
+.page::before,
+.page::after {
+    content: "";
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(90px);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.page::before {
+    width: 340px;
+    height: 340px;
+    background: var(--color-primary);
+    top: -100px;
+    left: -80px;
+    animation: floatBlob 14s ease-in-out infinite;
+}
+
+.page::after {
+    width: 280px;
+    height: 280px;
+    background: var(--color-kids);
+    bottom: 40px;
+    right: -100px;
+    animation: floatBlob 18s ease-in-out infinite reverse;
+}
+
+@keyframes floatBlob {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, -40px) scale(1.12);
+    }
+}
+
+/* ---------- Header ---------- */
+
+.page__header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.page__title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.page__titleHighlight {
+    background: linear-gradient(120deg,
+            var(--color-primary) 0%,
+            var(--color-kids) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    display: inline-block;
+}
+
+.page__titleHighlight::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-kids));
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: underlineGrow 0.9s var(--transition-base) 0.3s forwards;
+}
+
+@keyframes underlineGrow {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.page__subtitle {
+    font-family: var(--font-family-base);
+    font-size: clamp(0.95rem, 2vw, 1.125rem);
+    color: var(--color-text-secondary);
+    margin: 0 auto;
+    max-width: 560px;
+    line-height: 1.6;
+}
+
+/* ---------- Grid wrapper ---------- */
+
+.page__grid {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+    .page {
+        padding: 32px 16px 56px;
+    }
+
+    .page__header {
+        margin-bottom: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page {
+        padding: 24px 12px 48px;
+    }
+}

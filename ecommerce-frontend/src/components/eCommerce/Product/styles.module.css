@@ -1,13 +1,245 @@
-.wishListBtn {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    background-color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* ============================================
+   Product card — wrapper styles
+   ============================================ */
+
+.card {
+    display: block;
+    height: 100%;
     cursor: pointer;
+}
+
+/* ---------- Stock status badge ---------- */
+
+.stockBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    margin: 4px 0;
+    transition:
+        background var(--transition-base),
+        color var(--transition-base);
+}
+
+.stockBadge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+/* In stock */
+.stockBadge--in {
+    background: rgba(129, 178, 154, 0.15);
+    color: var(--color-success);
+}
+
+.stockBadge--in .stockBadge__dot {
+    background: var(--color-success);
+    box-shadow: 0 0 0 0 rgba(129, 178, 154, 0.7);
+    animation: pulseDot 2s ease-in-out infinite;
+}
+
+/* Out of stock */
+.stockBadge--out {
+    background: rgba(236, 85, 43, 0.1);
+    color: var(--color-sale);
+}
+
+.stockBadge--out .stockBadge__dot {
+    background: var(--color-sale);
+}
+
+@keyframes pulseDot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(129, 178, 154, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(129, 178, 154, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(129, 178, 154, 0);
+    }
+}
+
+/* ---------- Remaining quantity hint ---------- */
+
+.qtyHint {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.4;
+    transition: color var(--transition-base);
+}
+
+.product--elevated:hover .qtyHint {
+    color: var(--color-text-primary);
+}
+
+/* ---------- Wishlist button ---------- */
+
+.wishListBtn {
+    position: absolute !important;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    padding: 0 !important;
+    border-radius: var(--radius-full) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(6px);
+    box-shadow: var(--shadow-sm) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition:
+        transform var(--transition-base),
+        background var(--transition-base),
+        box-shadow var(--transition-base) !important;
+}
+
+.wishListBtn:hover {
+    transform: scale(1.12) !important;
+    background: var(--color-bg-card) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.wishListBtn img {
+    width: 20px;
+    height: 20px;
+    display: block;
+    transition: transform var(--transition-base);
+}
+
+.wishListBtn:hover img {
+    transform: scale(1.1);
+}
+
+/* Heartbeat pulse when actively liking */
+.wishListBtn--active img {
+    animation: heartPulse 0.4s ease;
+}
+
+@keyframes heartPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.35);
+    }
+
+    70% {
+        transform: scale(0.92);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ---------- Add to cart button ---------- */
+
+.addToCartBtn {
+    width: 100%;
+    margin-top: 8px;
+    height: 40px;
+    border-radius: var(--radius-full) !important;
+    font-family: var(--font-family-base) !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    background: var(--color-secondary) !important;
+    color: var(--color-text-inverse) !important;
+    border: none !important;
+    transition:
+        background var(--transition-base),
+        transform var(--transition-base),
+        box-shadow var(--transition-base) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.addToCartBtn:hover:not(:disabled) {
+    background: var(--color-primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(236, 85, 43, 0.3) !important;
+}
+
+.addToCartBtn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.addToCartBtn:disabled {
+    background: var(--color-border) !important;
+    color: var(--color-text-secondary) !important;
+    cursor: not-allowed !important;
+    opacity: 0.8;
+}
+
+/* Shine sweep on hover */
+.addToCartBtn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent);
+    transition: left 0.6s ease;
+}
+
+.addToCartBtn:hover:not(:disabled)::after {
+    left: 100%;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 480px) {
+    .wishListBtn {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        top: 8px;
+        right: 8px;
+    }
+
+    .wishListBtn img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .addToCartBtn {
+        height: 36px;
+        font-size: 0.78rem !important;
+    }
+
+    .stockBadge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .wishListBtn,
+    .wishListBtn img,
+    .addToCartBtn,
+    .addToCartBtn::after,
+    .stockBadge--in .stockBadge__dot,
+    .wishListBtn--active img {
+        transition: none !important;
+        animation: none !important;
+    }
 }

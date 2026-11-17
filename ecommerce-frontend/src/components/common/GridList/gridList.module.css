@@ -1,0 +1,126 @@
+/* ============================================
+   GridList — responsive animated grid
+   ============================================ */
+
+.grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    align-items: stretch;
+    width: 100%;
+}
+
+/* ---------- Empty state ---------- */
+
+.grid__empty {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 16px;
+    text-align: center;
+    animation: fadeUp 0.5s var(--transition-base);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Staggered entrance for grid items ---------- */
+
+.grid__item {
+    opacity: 0;
+    animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Generate stagger delays (up to 12 items) */
+.grid__item:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.grid__item:nth-child(2) {
+    animation-delay: 0.10s;
+}
+
+.grid__item:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.grid__item:nth-child(4) {
+    animation-delay: 0.20s;
+}
+
+.grid__item:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.grid__item:nth-child(6) {
+    animation-delay: 0.30s;
+}
+
+.grid__item:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.grid__item:nth-child(8) {
+    animation-delay: 0.40s;
+}
+
+.grid__item:nth-child(9) {
+    animation-delay: 0.45s;
+}
+
+.grid__item:nth-child(10) {
+    animation-delay: 0.50s;
+}
+
+.grid__item:nth-child(11) {
+    animation-delay: 0.55s;
+}
+
+.grid__item:nth-child(12) {
+    animation-delay: 0.60s;
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+}
