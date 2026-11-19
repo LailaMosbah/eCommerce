@@ -10,22 +10,25 @@ import {
 const useWishlist = () => {
   const dispatch = useAppDispatch();
 
-  const { loading, error } = useAppSelector((state) => state.wishlist);
-  const productsFullInfo = useAppSelector(
-    (state) => state.wishlist.productsFullInfo,
+  const { loading, error, productsFullInfo } = useAppSelector(
+    (state) => state.wishlist,
   );
+
+  // Get current cart quantities
+  const cartItems = useAppSelector((state) => state.cart.items);
 
   useEffect(() => {
     const promise = dispatch(getWishlistProducts("productsFullInfo"));
+
     return () => {
       promise.abort();
       dispatch(cleanUpWishlistProductsFullInfo());
     };
   }, [dispatch]);
 
-  const productsInWishlistFullInfo = productsFullInfo.map((el) => ({
-    ...el,
-    quantity: el.quantity || 0,
+  const productsInWishlistFullInfo = productsFullInfo.map((product) => ({
+    ...product,
+    quantity: cartItems[product.id] || 0,
     isLiked: true,
     isAuthenticated: true,
   }));

@@ -9,6 +9,7 @@ type ProductInfoProps = {
     quantity?: number;
     direction?: "row" | "column";
     style?: React.CSSProperties;
+    className?: string;
     children?: React.ReactNode
 }
 function ProductInfo({ title, img, price, direction = "row", style, children, quantity }: ProductInfoProps) {

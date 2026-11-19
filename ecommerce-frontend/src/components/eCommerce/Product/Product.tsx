@@ -23,6 +23,10 @@ export default memo(function Product({ product }: { product: Product }) {
 
     const addToCartHandler = () => {
         dispatch(addToCart(product.id));
+        console.log(`Added ${product.title} to cart`);
+        console.log(`Max Quantity ${product.max_quantity} to cart`);
+        console.log(`quantity ${product.quantity} to cart`);
+        console.log(`current Remaining Quantity ${currentRemainingQuantity} to cart`);
     };
 
     // Wishlist Logic
@@ -62,6 +66,7 @@ export default memo(function Product({ product }: { product: Product }) {
                 /* ↓ opt-in to elevated card styling */
                 className="product--elevated"
             >
+                {/* toggle like button */}
                 <Button
                     type="text"
                     className={`${styles.wishListBtn} ${product.isLiked ? styles["wishListBtn--active"] : ""
